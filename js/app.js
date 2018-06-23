@@ -29,6 +29,7 @@ var selected;
 var selected_before;
 var pares = false;
 var arraList =[];
+
 $('li').each(function(){
 		
 		$(this).click(function(){
@@ -36,28 +37,35 @@ $('li').each(function(){
 			arraList.push(selected.children().attr('class'));
 			console.log(arraList);
 			
+			if(arraList.length == 1){
+
+				selected.css('background','red');
+
+			}
+
 			if(arraList.length == 2){
 
 				if(arraList[0] === arraList[1]){
-					selected.css('background','yellow');
+					selected.css('background','#02ccba');
+					selected_before.css('background','#02ccba');
 					pares = true;
 				}else{
 					selected.css('background','#2e3d49');
 					selected_before.css('background','#2e3d49');
 				}
-			}else{
-				
-				selected.css('background','grey');
 			}
 
 			if(arraList.length == 2){
-				arraList.splice(0,2);
-				selected.css('background','#2e3d49');
-				//selected_before.css('background','#2e3d49');
+				if(pares){
+					arraList.splice(0,2);
+				}else{
+					arraList.splice(0,2);
+					selected.css('background','#2e3d49');
+				}
 
 			}
 
-			selected_before = $(this);	
+			selected_before = $(this);		
 		});
 
 	});
