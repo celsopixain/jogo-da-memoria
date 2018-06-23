@@ -25,6 +25,44 @@ function shuffle(array) {
     return array;
 }
 
+var selected;
+var selected_before;
+var pares = false;
+var arraList =[];
+$('li').each(function(){
+		
+		$(this).click(function(){
+			selected = $(this);
+			arraList.push(selected.children().attr('class'));
+			console.log(arraList);
+			
+			if(arraList.length == 2){
+
+				if(arraList[0] === arraList[1]){
+					selected.css('background','yellow');
+					pares = true;
+				}else{
+					selected.css('background','#2e3d49');
+					selected_before.css('background','#2e3d49');
+				}
+			}else{
+				
+				selected.css('background','grey');
+			}
+
+			if(arraList.length == 2){
+				arraList.splice(0,2);
+				selected.css('background','#2e3d49');
+				//selected_before.css('background','#2e3d49');
+
+			}
+
+			selected_before = $(this);	
+		});
+
+	});
+
+
 
 /*
  * set up the event listener for a card. If a card is clicked:
