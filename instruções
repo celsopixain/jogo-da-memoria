@@ -1,0 +1,11 @@
+/ *
+  * Configure o ouvinte de eventos para um cartão. Se um cartão for clicado:
+  * - exibe o símbolo do cartão (coloque essa funcionalidade em outro
+  função que você chama a partir deste)
+  * - adicione o cartão a uma * lista * de cartões "abertos" (coloque esta funcionalidade em outra função que você chama desta)
+  * - se a lista já tiver outro cartão, verifique se os dois cartões correspondem
+  * + se as cartas coincidirem, bloqueie as cartas na posição aberta (coloque esta funcionalidade em outra função que você chama desta)
+  * + se os cartões não coincidirem, remova os cartões da lista e oculte o símbolo do cartão (coloque esta funcionalidade em outra função que você chama deste)
+  * + incrementa o contador de movimentos e exibe-o na página (coloca esta funcionalidade em outra função que você chama desta)
+  * + se todos os cartões tiverem correspondido, exibir uma mensagem com a pontuação final (colocar essa funcionalidade em outra função que você chama a partir desta)
+  * /

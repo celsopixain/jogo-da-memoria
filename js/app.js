@@ -28,38 +28,56 @@ function shuffle(array) {
 var selected;
 var selected_before;
 var pares = false;
-var arraList =[];
+var lista_selecionados = [];
+var lista_card;
+var lista_encontrados = [];
 
 $('li').each(function(){
 		
 		$(this).click(function(){
 			selected = $(this);
-			arraList.push(selected.children().attr('class'));
-			console.log(arraList);
+			var nomeCLass = selected.children().attr('class');
+			lista_selecionados.push(nomeCLass);
+			console.log("Selecionados: "+lista_selecionados);
+			console.log("Encontrados: "+lista_encontrados);
+			console.log("Está na lista: "+isOnTheList(nomeCLass));
 			
-			if(arraList.length == 1){
+			if(lista_selecionados.length == 1){
+				if((isOnTheList(nomeCLass))){
 
-				selected.css('background','red');
+				}else{
+					selected.css('background','red');
+					managerClassInHTML(selected, "open show", 1);
+				}
 
 			}
 
-			if(arraList.length == 2){
+			if(lista_selecionados.length == 2){
+				if(isOnTheList(nomeCLass)){
 
-				if(arraList[0] === arraList[1]){
-					selected.css('background','#02ccba');
-					selected_before.css('background','#02ccba');
-					pares = true;
 				}else{
-					selected.css('background','#2e3d49');
-					selected_before.css('background','#2e3d49');
+
+					if(lista_selecionados[0] === lista_selecionados[1]){
+						selected.css('background','#02ccba');
+						managerClassInHTML(selected, "open show", 1);
+						selected_before.css('background','#02ccba');
+						addClasstToListFound(selected.children().attr('class'));
+						addClasstToListFound(selected_before.children().attr('class'));
+						pares = true;
+					}else{
+						pares = false;
+						selected.css('background','#2e3d49');
+						selected_before.css('background','#2e3d49');
+						managerClassInHTML(selected_before, "open show", 0);
+					}
 				}
 			}
 
-			if(arraList.length == 2){
+			if(lista_selecionados.length == 2){
 				if(pares){
-					arraList.splice(0,2);
+					lista_selecionados.splice(0,2);
 				}else{
-					arraList.splice(0,2);
+					lista_selecionados.splice(0,2);
 					selected.css('background','#2e3d49');
 				}
 
@@ -71,14 +89,36 @@ $('li').each(function(){
 	});
 
 
+function isOnTheList(objetoClicado){
+	if(lista_encontrados.indexOf(objetoClicado) == -1){
+		return false;
+	}else{
+		return true;
+	}
+}
 
-/*
- * set up the event listener for a card. If a card is clicked:
- *  - display the card's symbol (put this functionality in another function that you call from this one)
- *  - add the card to a *list* of "open" cards (put this functionality in another function that you call from this one)
- *  - if the list already has another card, check to see if the two cards match
- *    + if the cards do match, lock the cards in the open position (put this functionality in another function that you call from this one)
- *    + if the cards do not match, remove the cards from the list and hide the card's symbol (put this functionality in another function that you call from this one)
- *    + increment the move counter and display it on the page (put this functionality in another function that you call from this one)
- *    + if all cards have matched, display a message with the final score (put this functionality in another function that you call from this one)
- */
+function addClasstToListFound(objetoEncontrado){
+	lista_encontrados.push(objetoEncontrado);
+}
+
+function getList(){
+	lista_card = $('li');
+	return lista_card;
+}
+
+function randomCards(){
+	var list_random;
+	list_random = shuffle(getList());
+
+}
+
+function managerClassInHTML(card, nameOfClass, addOrRemove){
+	if(addOrRemove == 1){
+	card.addClass(nameOfClass);		
+	}
+	if(addOrRemove == 0){
+		card.removeClass(nameOfClass);
+	}
+}
+
+
