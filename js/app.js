@@ -33,15 +33,18 @@ var lista_card;
 var lista_encontrados = [];
 var nomeCLassFirst;
 var nomeCLassSecund;
+var erros = 0;
 
 
 
-$('li').each(function(){
-		
-		$(this).click(function(){
+
+$('ul.deck li').each(function(){
+	if(erros <= 3){	
+		$(this).click(function(index, value){
 
 			//Seleciona a carta com elemento this do each
 			selected = $(this);
+
 
 			//busca o nome da class do filho do elemento card
 			nomeCLassFirst = selected.children().attr('class');
@@ -50,28 +53,39 @@ $('li').each(function(){
 			lista_selecionados.push(nomeCLassFirst);
 
 			//Adiciona Efeitos de seleção da carta 
+			
 			selected.animate({
 			transform:"rotateY(180deg)",
 			perspective:100
 			, height:"100px"},150);
+
+			selected.animate({
+			transform:"rotateY(90deg)",
+			perspective:100},150);
 			
 			selected.animate({
 			transform:"none",
 			perspective:100,
 			height:"125px"},150);
-			console.log(lista_encontrados);
-		
+			// console.log('lista encontrados: '+lista_encontrados);
+			// console.log('nameOfClass: '+nomeCLassFirst);
+			// console.log('isOnTheList(nomeCLassFirst): '+isOnTheList(nomeCLassFirst));
+
+			selected.css("pointer-events","none");
+			// selected.css("pointer-events", "auto");
+		if(!isOnTheList(nomeCLassFirst)){
+
 			//Se a seleção for apenas de uma carta então não faz nada
 			if(lista_selecionados.length <= 1){
 			//console.log(lista_encontrados);
 				
-				if(isOnTheList(nomeCLassFirst)){
 				/*Se existe a classe na lista então não faz nada, impedindo até de mudar a cor da carta
 				 pois já consta selecionada */
 
-				}else{
+				
 				managerClassInHTML(selected, "open show", 1);
-				selected.css('background','red');
+				selected.css('background','#02b3e4');
+
 
 				selected_before = selected;	
 				// Senao exibe o desenho do elemento filho da carta selecionada			
@@ -81,7 +95,6 @@ $('li').each(function(){
 
 				}
 
-			}
 
 			/* Agora se for selecionado 2 cartas entao */
 			if(lista_selecionados.length == 2){
@@ -92,16 +105,17 @@ $('li').each(function(){
 
 				}else{
 					managerClassInHTML(selected, "open show", 1);
-					selected.css('background','red');
+					selected.css('background','#02b3e4');
 					
 					if(lista_selecionados[0] === lista_selecionados[1]){
 						areTheSame();
 					}else{
 
-						console.log('selected: '+selected.children().attr('class'));
-						console.log('selected_before: '+selected_before.children().attr('class'));
+						// console.log('selected: '+selected.children().attr('class'));
+						// console.log('selected_before: '+selected_before.children().attr('class'));
 						turnOffEfect();
 						setTimeout(notAreTheSame(),1000);
+						erros = erros+1;
 						
 					}
 				}
@@ -125,14 +139,27 @@ $('li').each(function(){
 
 			selected_before = $(this);
 			nomeCLassSecund = $(this).children().attr('class');
+		}else{
+			notAreTheSame();
+			
+			setTimeout(function(){managerClassInHTML(selected_before, "open show", 0);
+			selected_before.css('background','#2e3d49');
+			},600);
+			}
+			selected.css("pointer-events", "auto");
 		});
+	
+	}else{
+		alert("Erros = 3");
+	}		
+	
 
-	});
+});
 
 function turnOnEfect() {
 	
 	setTimeout(function(){managerClassInHTML(selected_before, "open show", 1);
-	selected_before.css('background','red');
+	selected_before.css('background','#02b3e4');
 	},400)
 }
 
@@ -144,8 +171,8 @@ function turnOffEfect(){
 	
 	managerClassInHTML(selected_before, "open show", 0);
 	selected_before.css('background','#2e3d49');
-	console.log('selected_before pai: '+selected_before.attr('class'));
-	console.log('selected_before filho: '+selected_before.children().attr('class'));
+	// console.log('selected_before pai: '+selected_before.attr('class'));
+	// console.log('selected_before filho: '+selected_before.children().attr('class'));
 }
 	
 function isOnTheList(objetoClicado){
@@ -191,16 +218,54 @@ function areTheSame(){
 
 function notAreTheSame(){
 	pares = false;
-	//selected.css('background','#2e3d49');
-	//selected_before.css('background','#2e3d49');
-	//managerClassInHTML(selected, "open show", 0);
-	//managerClassInHTML(selected_before, "open show", 0);
 	lista_selecionados.splice(0,2);
 
 }
 	
 function efectClickedAnimate(objetoSelecionado, cssEscolhido, valorCss, tempo){
-	// console.log('obj: '+objetoSelecionado+ cssEscolhido+": "+valorCss);
 	objetoSelecionado.animate({cssEscolhido:'"'+valorCss+'"'},tempo);
-	console.log(objetoSelecionado+'.'+'animate'+'('+'{'+cssEscolhido+':'+'"'+valorCss+'"'+'}'+','+tempo+')');
+}
+
+function embaralhar(){
+
+	var list = [];
+	$('.deck i').each(function(){
+		list.push($(this).attr('class'));
+	})
+
+	list = shuffle(list);	
+	
+	$('.deck i').each(function(index){
+
+		console.log($(this).attr('class'));
+		$(this).removeClass();
+		$(this).addClass(list[index]);
+
+	})
+	novoJogo();	
+
+}
+
+function novoJogo(){
+	
+	selected = null;
+	selected_before = null;
+	pares = false;
+	lista_selecionados = [];
+	lista_card  = [];
+	lista_encontrados = [];
+	nomeCLassFirst = null;
+	nomeCLassSecund = null
+	erros = 0;
+	
+	$('ul.deck li').each(function(){
+		$('ul.deck li').css('background','#2e3d49');
+
+		if($('ul.deck li').hasClass('open show')){
+			managerClassInHTML($('ul.deck li'),'open show',0);
+
+		}		
+
+	})
+
 }
