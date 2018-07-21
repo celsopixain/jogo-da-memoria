@@ -33,21 +33,23 @@ var lista_card;
 var lista_encontrados = [];
 var nomeCLassFirst;
 var nomeCLassSecund;
-var erros = 3;
+var erros = 5;
 var stars = [];
+var card;
+var card_before;
 
 
 
 
 stars = $('.stars li').children();
-$('ul.deck li').each(function(){
-		$(this).click(function(index, value){
+$('ul.deck li').each(function(index, value){
+		$(this).click(function(){
 			
 
 			if(erros > 0 ){	
 			//Seleciona a carta com elemento this do each
 			selected = $(this);
-			console.log(stars);
+			card = index;
 
 			//busca o nome da class do filho do elemento card
 			nomeCLassFirst = selected.children().attr('class');
@@ -56,7 +58,10 @@ $('ul.deck li').each(function(){
 			lista_selecionados.push(nomeCLassFirst);
 
 			//Adiciona Efeitos de seleção da carta 
-			
+			console.log(lista_encontrados);
+			console.log(lista_encontrados.length);
+
+
 			selected.animate({
 			transform:"rotateY(180deg)",
 			perspective:100
@@ -88,6 +93,7 @@ $('ul.deck li').each(function(){
 
 
 				selected_before = selected;	
+				card_before = index;
 				// Senao exibe o desenho do elemento filho da carta selecionada			
 
 				}	
@@ -105,8 +111,11 @@ $('ul.deck li').each(function(){
 					managerClassInHTML(selected, "open show", 1);
 					selected.css('background','#02b3e4');
 					
-					if(lista_selecionados[0] === lista_selecionados[1]){
+
+					if(lista_selecionados[0] === lista_selecionados[1] && card != card_before){
 						areTheSame();
+
+
 					}else{
 
 						turnOffEfect();
@@ -122,6 +131,8 @@ $('ul.deck li').each(function(){
 							}
 
 						})
+
+
 
 						
 					}
@@ -146,6 +157,7 @@ $('ul.deck li').each(function(){
 
 			selected_before = $(this);
 			nomeCLassSecund = $(this).children().attr('class');
+			card_before = index;
 		}else{
 			notAreTheSame();
 			
@@ -157,7 +169,8 @@ $('ul.deck li').each(function(){
 		}else{
 
 			embaralhar();
-			alert("Erros = 3");
+			alert("Movimentos = "+erros);
+			// window.location.href="you-wins.html";
 		}		
 	});
 	
@@ -222,11 +235,17 @@ function areTheSame(){
 	addClasstToListFound(selected.children().attr('class'));
 	pares = true;
 	lista_selecionados.splice(0,2);
+	if(lista_encontrados.length == 8){
+		window.location.href="you-wins.html";
+	}
+
 }
 
 function notAreTheSame(){
 	pares = false;
 	lista_selecionados.splice(0,2);
+	card_before = null;
+	card = null;
 
 }
 	
@@ -245,7 +264,6 @@ function embaralhar(){
 	
 	$('.deck i').each(function(index){
 
-		console.log($(this).attr('class'));
 		$(this).removeClass();
 		$(this).addClass(list[index]);
 
@@ -258,6 +276,8 @@ function novoJogo(){
 	
 	selected = null;
 	selected_before = null;
+	card_before = null;
+	card = null;
 	pares = false;
 	lista_selecionados = [];
 	lista_card  = [];
