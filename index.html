@@ -7,6 +7,7 @@
     <link rel="stylesheet prefetch" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.1/css/font-awesome.min.css">
     <link rel="stylesheet prefetch" href="https://fonts.googleapis.com/css?family=Coda">
     <link rel="stylesheet" href="css/app.css">
+    <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 </head>
 <body>
@@ -21,10 +22,10 @@
         	<ul class="stars">
         		<li><i class="fa fa-star"></i></li>
         		<li><i class="fa fa-star"></i></li>
-        		<li><i class="fa fa-star"></i></li>
+                <li><i class="fa fa-star"></i></li>
         	</ul>
             
-        	<span class="moves" value="erros"> 5  </span> MOVEMENTS REMAINING
+        	<span class="moves" value="erros"> 3 </span> <span>MOVEMENTS REMAINING</span>
 
             <div class="restart">
         		<i class="fa fa-repeat" id="seta-restart" onclick="embaralhar()" title="Novo Jogo"></i>
@@ -82,6 +83,31 @@
                 <i class="fa fa-cube"></i>
             </li>
         </ul>
+
+                <button onclick="document.getElementById('id01').style.display='block'">Modal</button>
+                
+                <div id="id01" class="w3-modal">
+                  <div class="w3-modal-content w3-animate-zoom">
+
+                    <header class="w3-container w3-teal"> 
+                      <span onclick="document.getElementById('id01').style.display='none', embaralhar()" 
+                      class="w3-button w3-display-topright">&times;</span>
+                      <h4>YOU LOSE!!!</h4>
+                    </header>
+                    <div class="w3-container">
+                    <picture>
+                      <img id="img-erro" src="./img/erro.png"  >
+                    </picture>
+                      <button onclick="document.getElementById('id01').style.display='none';embaralhar();">Try Again</button>
+                    </div>
+                    <footer class="w3-container w3-teal">
+
+                    </footer>
+             
+                  </div>
+                </div>
+            
+
     </div>
 
     <script src="js/app.js"></script>

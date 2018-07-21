@@ -87,7 +87,7 @@ h1 {
 
 .score-panel {
     text-align: left;
-    width: 345px;
+    width: 320px;
     margin-bottom: 10px;
 }
 
@@ -151,4 +151,15 @@ h1 {
 
 .moves{
     font-size: 20px;
+}
+
+#img-erro{
+    width: 125px;
+    height: 125px;
+    padding: 17px;
+    /*background-color: linear-gradient(160deg, #02ccba 0%, #aa7ecd 100%);*/
+}
+
+.w3-modal-content{
+    width: 666px!important;
 }

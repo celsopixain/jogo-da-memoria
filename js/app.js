@@ -33,20 +33,34 @@ var lista_card;
 var lista_encontrados = [];
 var nomeCLassFirst;
 var nomeCLassSecund;
-var erros = 5;
+var erros = 3;
 var stars = [];
 var card;
 var card_before;
 
+var modal = document.getElementById('id01');
 
+// When the user clicks anywhere outside of the modal, close it
+window.onclick = function(event) {
+  if (event.target == modal) {
+    modal.style.display = "none";
+    embaralhar();
+  }
+}
 
 
 stars = $('.stars li').children();
+
+/*window.onload = initPage;
+function initPage(){
+	embaralhar();
+}*/
+
 $('ul.deck li').each(function(index, value){
 		$(this).click(function(){
 			
 
-			if(erros > 0 ){	
+			// if(erros > 0 ){	
 			//Seleciona a carta com elemento this do each
 			selected = $(this);
 			card = index;
@@ -58,8 +72,6 @@ $('ul.deck li').each(function(index, value){
 			lista_selecionados.push(nomeCLassFirst);
 
 			//Adiciona Efeitos de seleção da carta 
-			console.log(lista_encontrados);
-			console.log(lista_encontrados.length);
 
 
 			selected.animate({
@@ -76,13 +88,12 @@ $('ul.deck li').each(function(index, value){
 			perspective:100,
 			height:"125px"},150);
 
-			selected.css("pointer-events","none");
+			// selected.css("pointer-events","none");
 			// selected.css("pointer-events", "auto");
 		if(!isOnTheList(nomeCLassFirst)){
 
 			//Se a seleção for apenas de uma carta então não faz nada
 			if(lista_selecionados.length <= 1){
-			//console.log(lista_encontrados);
 				
 				/*Se existe a classe na lista então não faz nada, impedindo até de mudar a cor da carta
 				 pois já consta selecionada */
@@ -165,13 +176,14 @@ $('ul.deck li').each(function(index, value){
 			selected_before.css('background','#2e3d49');
 			},600);
 			}
-			selected.css("pointer-events", "auto");
-		}else{
+			// selected.css("pointer-events", "auto");
+		// }else{
 
-			embaralhar();
-			alert("Movimentos = "+erros);
+			// embaralhar();
+			
+			// alert("Movimentos = "+erros);
 			// window.location.href="you-wins.html";
-		}		
+		// }		
 	});
 	
 	
@@ -179,20 +191,25 @@ $('ul.deck li').each(function(index, value){
 });
 
 function turnOnEfect() {
-	
-	setTimeout(function(){managerClassInHTML(selected_before, "open show", 1);
-	selected_before.css('background','#02b3e4');
-	},400)
+	if(selected_before != null){
+		setTimeout(function(){managerClassInHTML(selected_before, "open show", 1);
+			selected_before.css('background','#02b3e4');},400)
+	}
 }
 
 function turnOffEfect(){
 	
-	setTimeout(function(){managerClassInHTML(selected, "open show", 0);
-	selected.css('background','#2e3d49');
-	},600);
-	
-	managerClassInHTML(selected_before, "open show", 0);
-	selected_before.css('background','#2e3d49');
+	if(selected != null){
+
+		setTimeout(function(){managerClassInHTML(selected, "open show", 0);
+			if(selected != null)selected.css('background','#2e3d49');
+		},600);
+	}
+	if(selected_before != null){
+		managerClassInHTML(selected_before, "open show", 0);
+			selected_before.css('background','#2e3d49');
+		
+	}
 }
 	
 function isOnTheList(objetoClicado){
@@ -220,10 +237,10 @@ function randomCards(){
 
 
 function managerClassInHTML(card, nameOfClass, addOrRemove){
-	if(addOrRemove == 1){
-	card.addClass(nameOfClass);		
+	if(addOrRemove == 1 && card != null){
+		card.addClass(nameOfClass);		
 	}
-	if(addOrRemove == 0){
+	if(addOrRemove == 0 && card != null){
 		card.removeClass(nameOfClass);
 	}
 }
@@ -242,11 +259,13 @@ function areTheSame(){
 }
 
 function notAreTheSame(){
+	if(erros <= 1 ){
+		document.getElementById('id01').style.display='block';
+	}
 	pares = false;
 	lista_selecionados.splice(0,2);
 	card_before = null;
 	card = null;
-
 }
 	
 function efectClickedAnimate(objetoSelecionado, cssEscolhido, valorCss, tempo){
@@ -254,7 +273,7 @@ function efectClickedAnimate(objetoSelecionado, cssEscolhido, valorCss, tempo){
 }
 
 function embaralhar(){
-
+	
 	var list = [];
 	$('.deck i').each(function(){
 		list.push($(this).attr('class'));
@@ -274,6 +293,19 @@ function embaralhar(){
 
 function novoJogo(){
 	
+	$('ul.deck li').each(function(){
+		$('ul.deck li').css('background','#2e3d49');
+
+		if($('ul.deck li').hasClass('open show')){
+			managerClassInHTML($('ul.deck li'),'open show',0);
+		}		
+	})
+	$('.stars li i').each(function(){
+		if($(this) != null){
+			managerClassInHTML($(this),"fa-star",1);
+					
+		}
+	})
 	selected = null;
 	selected_before = null;
 	card_before = null;
@@ -286,24 +318,5 @@ function novoJogo(){
 	nomeCLassSecund = null
 	erros = 3;
 	$('.moves').text(erros);
-
-	
-	$('ul.deck li').each(function(){
-		$('ul.deck li').css('background','#2e3d49');
-
-		if($('ul.deck li').hasClass('open show')){
-			managerClassInHTML($('ul.deck li'),'open show',0);
-
-		}		
-
-	})
-
-	$('.stars li i').each(function(){
-		if($(this) != null){
-			managerClassInHTML($(this),"fa-star",1);
-					
-		}
-
-	})
 
 }
