@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="utf-8">
-    <title>Matching Game</title>
+    <title>Memory game</title>
     <meta name="description" content="">
     <link rel="stylesheet prefetch" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.1/css/font-awesome.min.css">
     <link rel="stylesheet prefetch" href="https://fonts.googleapis.com/css?family=Coda">
@@ -14,8 +14,8 @@
 
     <div class="container">
         <header>
-            <h1>Matching Game</h1>
-            <h1>Ramo Master</h1>
+            <h1>Memory game</h1>
+            <h1 id="wins"></h1>
         </header>
 
         <section class="score-panel">
@@ -83,30 +83,50 @@
                 <i class="fa fa-cube"></i>
             </li>
         </ul>
+                <!-- Modal Erro -->
 
-                <button onclick="document.getElementById('id01').style.display='block'">Modal</button>
-                
                 <div id="id01" class="w3-modal">
-                  <div class="w3-modal-content w3-animate-zoom">
+                  <div class="w3-modal-content w3-animate-bottom">
 
-                    <header class="w3-container w3-teal"> 
+                    <header  class="w3-container w3-red"> 
                       <span onclick="document.getElementById('id01').style.display='none', embaralhar()" 
                       class="w3-button w3-display-topright">&times;</span>
                       <h4>YOU LOSE!!!</h4>
                     </header>
                     <div class="w3-container">
                     <picture>
-                      <img id="img-erro" src="./img/erro.png"  >
+                      <img class="img-erro" src="./img/erro.png"  >
                     </picture>
                       <button onclick="document.getElementById('id01').style.display='none';embaralhar();">Try Again</button>
                     </div>
-                    <footer class="w3-container w3-teal">
-
-                    </footer>
              
                   </div>
                 </div>
-            
+            <!-- Fim Modal Erro -->
+
+            <!-- Modal Vencedor -->
+
+                
+                <div id="id02" class="w3-modal">
+                  <div class="w3-modal-content w3-animate-zoom">
+
+                    <header class="w3-container w3-teal"> 
+                      <span onclick="document.getElementById('id02').style.display='none', embaralhar()" 
+                      class="w3-button w3-display-topright">&times;</span>
+                      <h3>Congratulations You Won!!!</h3>
+                    </header>
+                    <div class="w3-container">
+                        <section>
+                            <picture >
+                                <img  class="img-erro" src="./img/correto2.jpeg" >
+                            </picture>
+                        <button onclick="document.getElementById('id02').style.display='none';embaralhar();">Try Again</button>
+                        </section>
+                    </div>
+             
+                  </div>
+                </div>
+            <!-- Fim Modal Vencedor -->    
 
     </div>
 

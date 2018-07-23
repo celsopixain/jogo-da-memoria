@@ -37,14 +37,19 @@ var erros = 3;
 var stars = [];
 var card;
 var card_before;
-
-var modal = document.getElementById('id01');
+var wins = 0;
+var modal_01 = document.getElementById('id01');
+var modal_02 = document.getElementById('id02');
 
 // When the user clicks anywhere outside of the modal, close it
 window.onclick = function(event) {
-  if (event.target == modal) {
-    modal.style.display = "none";
+  if (event.target == modal_01) {
+    modal_01.style.display = "none";
     embaralhar();
+  }
+  if(event.target == modal_02){
+  	modal_02.style.display = "none";
+  	embaralhar();
   }
 }
 
@@ -172,6 +177,9 @@ $('ul.deck li').each(function(index, value){
 		}else{
 			notAreTheSame();
 			
+			setTimeout(function(){managerClassInHTML(selected, "open show", 0);
+			selected.css('background','#2e3d49');
+			},1000);
 			setTimeout(function(){managerClassInHTML(selected_before, "open show", 0);
 			selected_before.css('background','#2e3d49');
 			},600);
@@ -253,7 +261,7 @@ function areTheSame(){
 	pares = true;
 	lista_selecionados.splice(0,2);
 	if(lista_encontrados.length == 8){
-		window.location.href="you-wins.html";
+		document.getElementById('id02').style.display='block';
 	}
 
 }
