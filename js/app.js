@@ -41,7 +41,7 @@ var wins = 0;
 var modal_01 = document.getElementById('id01');
 var modal_02 = document.getElementById('id02');
 //var cores = ["pink","purple","white","grey","green","yellow","blue","red"];
-var cores = ["#EE82EE","#A9A9A9","#40E0D0","#F4A460","#DDA0DD","#FA8072","#7FFF00","#FFFF00"];
+var cores = ["#EE82EE","#A9A9A9","#40E0D0","#FFFF00" ,"#F0E68C","#DC143C","#7FFF00","#F4A460"];
 var indice_cor = 0;
 
 // When the user clicks anywhere outside of the modal, close it
