@@ -81,13 +81,17 @@ h1 {
     font-size: 33px;
 }
 
+span{
+    position: relative;
+    text-align: right;
+}
 /*
  * Styles for the Score Panel
  */
 
 .score-panel {
     text-align: left;
-    width: 320px;
+    width: 360px;
     margin-bottom: 10px;
 }
 

@@ -33,7 +33,7 @@ var lista_card;
 var lista_encontrados = [];
 var nomeCLassFirst;
 var nomeCLassSecund;
-var erros = 3;
+var erros = 5;
 var stars = [];
 var card;
 var card_before;
@@ -41,7 +41,7 @@ var wins = 0;
 var modal_01 = document.getElementById('id01');
 var modal_02 = document.getElementById('id02');
 //var cores = ["pink","purple","white","grey","green","yellow","blue","red"];
-var cores = ["red","#A9A9A9","#40E0D0","#F4A460","#DDA0DD","#FA8072","#7FFF00","#FFFF00"];
+var cores = ["#EE82EE","#A9A9A9","#40E0D0","#F4A460","#DDA0DD","#FA8072","#7FFF00","#FFFF00"];
 var indice_cor = 0;
 
 // When the user clicks anywhere outside of the modal, close it
@@ -60,10 +60,10 @@ window.onclick = function(event) {
 
 stars = $('.stars li').children();
 
-window.onload = initPage;
+/*window.onload = initPage;
 function initPage(){
 	embaralhar();
-}
+}*/
 
 $('ul.deck li').each(function(index, value){
 		$(this).click(function(){
@@ -278,7 +278,7 @@ function novoJogo(){
 	lista_encontrados = [];
 	nomeCLassFirst = null;
 	nomeCLassSecund = null
-	erros = 3;
+	erros = 5;
 	$('.moves').text(erros);
 
 }
