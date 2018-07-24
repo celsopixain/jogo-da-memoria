@@ -40,6 +40,9 @@ var card_before;
 var wins = 0;
 var modal_01 = document.getElementById('id01');
 var modal_02 = document.getElementById('id02');
+var cores = ["pink","purple","white","grey","green","yellow","blue","red"];
+// var cores = ["#00BFFF","#A9A9A9","#40E0D0","#F4A460","#DDA0DD","#FA8072","#F0F8FF","#FFFF00"];
+var indice_cor = 0;
 
 // When the user clicks anywhere outside of the modal, close it
 window.onclick = function(event) {
@@ -54,6 +57,7 @@ window.onclick = function(event) {
 }
 
 
+
 stars = $('.stars li').children();
 
 /*window.onload = initPage;
@@ -65,72 +69,38 @@ $('ul.deck li').each(function(index, value){
 		$(this).click(function(){
 			
 
-			// if(erros > 0 ){	
-			//Seleciona a carta com elemento this do each
 			selected = $(this);
 			card = index;
 
-			//busca o nome da class do filho do elemento card
 			nomeCLassFirst = selected.children().attr('class');
 
-			//Adiciona o nome do elemento em uma lista de itens selecionados
 			lista_selecionados.push(nomeCLassFirst);
-
-			//Adiciona Efeitos de seleção da carta 
-
-
-			selected.animate({
-			transform:"rotateY(180deg)",
-			perspective:100
-			, height:"100px"},150);
-
-			selected.animate({
-			transform:"rotateY(90deg)",
-			perspective:100},150);
-			
-			selected.animate({
-			transform:"none",
-			perspective:100,
-			height:"125px"},150);
-
 			// selected.css("pointer-events","none");
 			// selected.css("pointer-events", "auto");
 		if(!isOnTheList(nomeCLassFirst)){
 
-			//Se a seleção for apenas de uma carta então não faz nada
 			if(lista_selecionados.length <= 1){
 				
-				/*Se existe a classe na lista então não faz nada, impedindo até de mudar a cor da carta
-				 pois já consta selecionada */
-
-				
-				managerClassInHTML(selected, "open show", 1);
-				selected.css('background','#02b3e4');
-
+				open_or_close_card(true,selected);
 
 				selected_before = selected;	
 				card_before = index;
-				// Senao exibe o desenho do elemento filho da carta selecionada			
-
 				}	
 
-
-
-			/* Agora se for selecionado 2 cartas entao */
 			if(lista_selecionados.length == 2){
-			
-				
 				
 				if(isOnTheList(nomeCLassFirst)){
 
 				}else{
-					managerClassInHTML(selected, "open show", 1);
-					selected.css('background','#02b3e4');
+					open_or_close_card(true,selected);
 					
 
 					if(lista_selecionados[0] === lista_selecionados[1] && card != card_before){
-						areTheSame();
-
+						correctCard(selected_before,false);
+						if(cores[indice_cor]!= null){
+							areTheSame(cores[indice_cor]);
+							indice_cor++;
+						}
 
 					}else{
 
@@ -138,7 +108,6 @@ $('ul.deck li').each(function(index, value){
 						setTimeout(notAreTheSame(),1000);
 						erros = erros-1;
 						$('.moves').text(erros);
-
 						
 						$('.stars li i').each(function(){
 							if($(this).attr('class') === "fa fa-star"){
@@ -147,9 +116,6 @@ $('ul.deck li').each(function(index, value){
 							}
 
 						})
-
-
-
 						
 					}
 				}
@@ -164,8 +130,6 @@ $('ul.deck li').each(function(index, value){
 						lista_selecionados.splice(0,2);
 					}else{
 						lista_selecionados.splice(0,2);
-						selected.css('background','#2e3d49');
-						selected_before.css('background','#2e3d49');
 					}
 				}		
 
@@ -184,16 +148,7 @@ $('ul.deck li').each(function(index, value){
 			selected_before.css('background','#2e3d49');
 			},600);
 			}
-			// selected.css("pointer-events", "auto");
-		// }else{
-
-			// embaralhar();
-			
-			// alert("Movimentos = "+erros);
-			// window.location.href="you-wins.html";
-		// }		
 	});
-	
 	
 
 });
@@ -253,10 +208,13 @@ function managerClassInHTML(card, nameOfClass, addOrRemove){
 	}
 }
 
-function areTheSame(){
-	selected.css('background','#02ccba');
-	managerClassInHTML(selected, "open show", 1);
-	selected_before.css('background','#02ccba');
+function areTheSame(cor){
+	var aux = "'"+cor+"'";
+	setTimeout(function(){ selected.css('background-color',aux); console.log('cor: '+aux); }, 300);
+	selected_before.css('background-color',aux);
+	
+	setTimeout(function(){ correctCard(selected,true); }, 200);
+	
 	addClasstToListFound(selected.children().attr('class'));
 	pares = true;
 	lista_selecionados.splice(0,2);
@@ -276,9 +234,6 @@ function notAreTheSame(){
 	card = null;
 }
 	
-function efectClickedAnimate(objetoSelecionado, cssEscolhido, valorCss, tempo){
-	objetoSelecionado.animate({cssEscolhido:'"'+valorCss+'"'},tempo);
-}
 
 function embaralhar(){
 	
@@ -328,3 +283,42 @@ function novoJogo(){
 	$('.moves').text(erros);
 
 }
+
+function open_or_close_card(openORClose, card){
+	if(card != null){
+		if(openORClose == true){
+			setTimeout(function(){ card.css('transform','rotateY(50deg)'); }, 100);
+			setTimeout(function(){ card.css('transform','rotateY(100deg)'); }, 150);
+			setTimeout(function(){ card.css('transform','rotateY(130deg)'); }, 200);
+			setTimeout(function(){ card.css('transform','rotateY(180deg)'); }, 250);
+			setTimeout(function(){ card.css('background','#02b3e4'); }, 250);
+			setTimeout(function(){ card.addClass('open show'); }, 250);
+				
+		}else {
+			setTimeout(function(){ card.css('transform','rotateY(50deg)'); }, 100);
+			setTimeout(function(){ card.css('transform','rotateY(100deg)'); }, 150);
+			setTimeout(function(){ card.css('transform','rotateY(130deg)'); }, 200);
+			setTimeout(function(){ card.css('transform','rotateY(180deg)'); }, 250);
+			setTimeout(function(){ card.css('background','#02b3e4'); }, 250);
+			setTimeout(function(){ card.removeClass('open show'); }, 250);
+			
+
+		}
+		
+	}
+
+}
+
+function correctCard(cartaSelecionada, aux){
+	// console.log('correctCard');
+	// console.log('cartaSelecionada: '+cartaSelecionada.children().attr('class'));
+	if(aux == true){
+		cartaSelecionada.animate({height:"80px"},200);
+		cartaSelecionada.animate({height:"125px"},300);
+	}else{
+		cartaSelecionada.animate({height:"80px"},300);
+		cartaSelecionada.animate({height:"125px"},450);
+
+	}
+}
+
