@@ -40,8 +40,8 @@ var card_before;
 var wins = 0;
 var modal_01 = document.getElementById('id01');
 var modal_02 = document.getElementById('id02');
-var cores = ["pink","purple","white","grey","green","yellow","blue","red"];
-// var cores = ["#00BFFF","#A9A9A9","#40E0D0","#F4A460","#DDA0DD","#FA8072","#F0F8FF","#FFFF00"];
+//var cores = ["pink","purple","white","grey","green","yellow","blue","red"];
+var cores = ["red","#A9A9A9","#40E0D0","#F4A460","#DDA0DD","#FA8072","#7FFF00","#FFFF00"];
 var indice_cor = 0;
 
 // When the user clicks anywhere outside of the modal, close it
@@ -60,10 +60,10 @@ window.onclick = function(event) {
 
 stars = $('.stars li').children();
 
-/*window.onload = initPage;
+window.onload = initPage;
 function initPage(){
 	embaralhar();
-}*/
+}
 
 $('ul.deck li').each(function(index, value){
 		$(this).click(function(){
@@ -209,9 +209,8 @@ function managerClassInHTML(card, nameOfClass, addOrRemove){
 }
 
 function areTheSame(cor){
-	var aux = "'"+cor+"'";
-	setTimeout(function(){ selected.css('background-color',aux); console.log('cor: '+aux); }, 300);
-	selected_before.css('background-color',aux);
+	setTimeout(function(){ selected.css('background-color',cor); }, 300);
+	selected_before.css('background-color',cor);
 	
 	setTimeout(function(){ correctCard(selected,true); }, 200);
 	
