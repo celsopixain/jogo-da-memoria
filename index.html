@@ -2,35 +2,42 @@
 <html lang="en">
 <head>
     <meta charset="utf-8">
-    <title>Memory game</title>
+    <title>Jogo da Memória</title>
     <meta name="description" content="">
     <link rel="stylesheet prefetch" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.1/css/font-awesome.min.css">
+    
     <link rel="stylesheet prefetch" href="https://fonts.googleapis.com/css?family=Coda">
     <link rel="stylesheet" href="css/app.css">
     <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+    <link href="https://fonts.googleapis.com/css?family=Black+Ops+One|Fredericka+the+Great|Merienda" rel="stylesheet">
+    
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 </head>
 <body>
 
     <div class="container">
         <header>
-            <h1>Memory game</h1>
+            <h2>JOGO DA MEMÓRIA</h2>
             <h1 id="wins"></h1>
         </header>
 
         <section class="score-panel">
-        	<ul class="stars">
-        		<li><i class="fa fa-star"></i></li>
-        		<li><i class="fa fa-star"></i></li>
+            <ul class="stars">
                 <li><i class="fa fa-star"></i></li>
                 <li><i class="fa fa-star"></i></li>
                 <li><i class="fa fa-star"></i></li>
-        	</ul>
-            
-        	<span class="moves" value="erros"> 5 </span> <span>MOVEMENTS REMAINING </span>
+                
+            </ul>
+            <br>
+            <span class="moves" value="erros"> 3 </span> 
+            <span class="titulo-movimentos"> </span>
 
             <div class="restart">
-        		<i class="fa fa-repeat" id="seta-restart" onclick="embaralhar()" title="Novo Jogo"></i>
+                <button class="w3-button w3-teal">
+                    <i class="fa fa-repeat" id="seta-restart" onclick="embaralhar()" title="Reiniciar"> Novo</i>
+                </button>
+
+
         	</div>
         </section>
 
@@ -46,7 +53,7 @@
                 <i class="fa fa-anchor"></i>
             </li>
             <li class="card">
-                <i class="fa fa-bolt"></i>
+                <i class="fa fa-heart"></i>
             </li>
             <li class="card">
                 <i class="fa fa-cube"></i>
@@ -73,7 +80,7 @@
                 <i class="fa fa-bomb"></i>
             </li>
             <li class="card">
-                <i class="fa fa-bolt"></i>
+                <i class="fa fa-heart"></i>
             </li>
             <li class="card">
                 <i class="fa fa-bicycle"></i>
@@ -99,7 +106,7 @@
                     <picture>
                       <img class="img-erro" src="./img/erro.png"  >
                     </picture>
-                      <button onclick="document.getElementById('id01').style.display='none';embaralhar();">Try Again</button>
+                      <button  class="w3-btn w3-white w3-border w3-round-large" onclick="document.getElementById('id01').style.display='none';embaralhar();">Tente Novamente</button>
                     </div>
              
                   </div>
@@ -122,7 +129,7 @@
                             <picture >
                                 <img  class="img-erro" src="./img/correto2.jpeg" >
                             </picture>
-                        <button onclick="document.getElementById('id02').style.display='none';embaralhar();">Try Again</button>
+                        <button class="w3-btn w3-white w3-border w3-round-large" onclick="document.getElementById('id02').style.display='none';embaralhar();">Tente Novamente</button>
                         </section>
                     </div>
              

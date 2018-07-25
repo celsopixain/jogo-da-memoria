@@ -33,16 +33,14 @@ var lista_card;
 var lista_encontrados = [];
 var nomeCLassFirst;
 var nomeCLassSecund;
-var erros = 5;
+var erros = 3;
 var stars = [];
-var card;
-var card_before;
 var wins = 0;
 var modal_01 = document.getElementById('id01');
 var modal_02 = document.getElementById('id02');
-//var cores = ["pink","purple","white","grey","green","yellow","blue","red"];
 var cores = ["#EE82EE","#A9A9A9","#40E0D0","#FFFF00" ,"#F0E68C","#DC143C","#7FFF00","#F4A460"];
 var indice_cor = 0;
+var lista_cartas_reais = [];
 
 // When the user clicks anywhere outside of the modal, close it
 window.onclick = function(event) {
@@ -60,6 +58,8 @@ window.onclick = function(event) {
 
 stars = $('.stars li').children();
 
+iniciarJogo();
+
 /*window.onload = initPage;
 function initPage(){
 	embaralhar();
@@ -70,42 +70,53 @@ $('ul.deck li').each(function(index, value){
 			
 
 			selected = $(this);
-			card = index;
+			
 
 			nomeCLassFirst = selected.children().attr('class');
 
 			lista_selecionados.push(nomeCLassFirst);
-			// selected.css("pointer-events","none");
-			// selected.css("pointer-events", "auto");
-		if(!isOnTheList(nomeCLassFirst)){
 
 			if(lista_selecionados.length <= 1){
 				
 				open_or_close_card(true,selected);
-
+				lista_cartas_reais[0] = $(this);
 				selected_before = selected;	
-				card_before = index;
+				
 				}	
 
 			if(lista_selecionados.length == 2){
+				
+				lista_cartas_reais[1] = $(this);
 				
 				if(isOnTheList(nomeCLassFirst)){
 
 				}else{
 					open_or_close_card(true,selected);
 					
+			
 
-					if(lista_selecionados[0] === lista_selecionados[1] && card != card_before){
+					if(lista_selecionados[0] === lista_selecionados[1] ){
 						correctCard(selected_before,false);
 						if(cores[indice_cor]!= null){
 							areTheSame(cores[indice_cor]);
 							indice_cor++;
+							lista_cartas_reais[0].css("pointer-events","none");
+							lista_cartas_reais[1].css("pointer-events","none");
+							lista_cartas_reais = [];
 						}
 
 					}else{
-
+						
+						lista_cartas_reais = [];
 						turnOffEfect();
-						setTimeout(notAreTheSame(),1000);
+						if(selected_before != null){
+								setTimeout(function(){
+									console.log('entrou aqui: '+' '+selected_before);
+									open_or_close_card(false,selected_before);
+								},1000);
+							}
+		
+						notAreTheSame();
 						erros = erros-1;
 						$('.moves').text(erros);
 						
@@ -135,19 +146,8 @@ $('ul.deck li').each(function(index, value){
 
 			}
 
-			selected_before = $(this);
 			nomeCLassSecund = $(this).children().attr('class');
-			card_before = index;
-		}else{
-			notAreTheSame();
 			
-			setTimeout(function(){managerClassInHTML(selected, "open show", 0);
-			selected.css('background','#2e3d49');
-			},1000);
-			setTimeout(function(){managerClassInHTML(selected_before, "open show", 0);
-			selected_before.css('background','#2e3d49');
-			},600);
-			}
 	});
 	
 
@@ -164,15 +164,12 @@ function turnOffEfect(){
 	
 	if(selected != null){
 
-		setTimeout(function(){managerClassInHTML(selected, "open show", 0);
+		setTimeout(function(){open_or_close_card(false, selected);
 			if(selected != null)selected.css('background','#2e3d49');
-		},600);
+			console.log('entrou aqui: '+' '+selected_before);
+		},1000);
 	}
-	if(selected_before != null){
-		managerClassInHTML(selected_before, "open show", 0);
-			selected_before.css('background','#2e3d49');
-		
-	}
+	
 }
 	
 function isOnTheList(objetoClicado){
@@ -229,8 +226,7 @@ function notAreTheSame(){
 	}
 	pares = false;
 	lista_selecionados.splice(0,2);
-	card_before = null;
-	card = null;
+	
 }
 	
 
@@ -260,7 +256,9 @@ function novoJogo(){
 
 		if($('ul.deck li').hasClass('open show')){
 			managerClassInHTML($('ul.deck li'),'open show',0);
-		}		
+		}
+		$(this).css("pointer-events", "auto");
+
 	})
 	$('.stars li i').each(function(){
 		if($(this) != null){
@@ -268,18 +266,20 @@ function novoJogo(){
 					
 		}
 	})
+
+
 	selected = null;
 	selected_before = null;
-	card_before = null;
-	card = null;
 	pares = false;
 	lista_selecionados = [];
 	lista_card  = [];
 	lista_encontrados = [];
 	nomeCLassFirst = null;
 	nomeCLassSecund = null
-	erros = 5;
+	erros = 3;
+	indice_cor = 0;
 	$('.moves').text(erros);
+	iniciarJogo();
 
 }
 
@@ -294,12 +294,12 @@ function open_or_close_card(openORClose, card){
 			setTimeout(function(){ card.addClass('open show'); }, 250);
 				
 		}else {
+			setTimeout(function(){ card.css('background','#2e3d49'); }, 100);
+			setTimeout(function(){ card.removeClass('open show'); }, 100);
 			setTimeout(function(){ card.css('transform','rotateY(50deg)'); }, 100);
 			setTimeout(function(){ card.css('transform','rotateY(100deg)'); }, 150);
 			setTimeout(function(){ card.css('transform','rotateY(130deg)'); }, 200);
 			setTimeout(function(){ card.css('transform','rotateY(180deg)'); }, 250);
-			setTimeout(function(){ card.css('background','#02b3e4'); }, 250);
-			setTimeout(function(){ card.removeClass('open show'); }, 250);
 			
 
 		}
@@ -321,3 +321,8 @@ function correctCard(cartaSelecionada, aux){
 	}
 }
 
+function iniciarJogo(){
+	open_or_close_card(true,$('ul.deck li'));
+	setTimeout(function(){ open_or_close_card(false,$('ul.deck li')); },3000);
+
+}

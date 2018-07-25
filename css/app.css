@@ -72,7 +72,7 @@ h1 {
 }
 
 .deck .card.show {
-    font-size: 33px;
+    font-size: 50px;
 }
 
 .deck .card.match {
@@ -91,7 +91,7 @@ span{
 
 .score-panel {
     text-align: left;
-    width: 360px;
+    width: 420px;
     margin-bottom: 10px;
 }
 
@@ -145,16 +145,21 @@ span{
                 inset -2px -2px 3px rgba(0, 0, 0, .6);
 }
 
-.fa.fa-repeat:hover{
-    color: red;
-}
+
 
 #seta-restart{
     font-size: 25px;
 }
 
 .moves{
-    font-size: 20px;
+    font-size: 40px;
+    font-family: 'Nanum Brush Script', cursive;
+}
+
+.titulo-movimentos{
+    font-size: 40px;
+    font-family: 'Merienda', cursive;
+
 }
 
 .img-erro{
@@ -165,6 +170,13 @@ span{
 }
 
 .w3-modal-content{
-    width: 666px!important;
+    width: 400px!important;
 }
+
+header h2{
+font-family: 'Fredericka the Great', cursive;
+font-size: 50px;
+}
+
+
 
