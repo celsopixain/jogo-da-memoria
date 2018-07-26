@@ -112,9 +112,9 @@ $('ul.deck li').each(function(index, value){
 						
 						lista_cartas_reais = [];
 						turnOffEfect();
+						setTimeout(function(){ blockCard($('ul.deck li'),true);}, 100);
 						if(selected_before != null){
 								setTimeout(function(){
-									console.log('entrou aqui: '+' '+selected_before);
 									open_or_close_card(false,selected_before);
 								},1000);
 							}
@@ -216,6 +216,7 @@ function areTheSame(cor){
 	lista_selecionados.splice(0,2);
 	if(lista_encontrados.length == 8){
 		document.getElementById('id02').style.display='block';
+		vitorias++;
 	}
 
 }
@@ -297,12 +298,15 @@ function open_or_close_card(openORClose, card){
 			setTimeout(function(){ card.addClass('open show'); }, 250);
 				
 		}else {
+			
+			
 			setTimeout(function(){ card.css('background','#2e3d49'); }, 100);
 			setTimeout(function(){ card.removeClass('open show'); }, 100);
 			setTimeout(function(){ card.css('transform','rotateY(50deg)'); }, 100);
 			setTimeout(function(){ card.css('transform','rotateY(100deg)'); }, 150);
 			setTimeout(function(){ card.css('transform','rotateY(130deg)'); }, 200);
 			setTimeout(function(){ card.css('transform','rotateY(180deg)'); }, 250);
+			setTimeout(function(){ blockCard($('ul.deck li'),false);}, 260);
 			
 
 		}
@@ -327,10 +331,10 @@ function iniciarJogo(){
 	open_or_close_card(true,$('ul.deck li'));
 	setTimeout(function(){ open_or_close_card(false,$('ul.deck li'));
 							blockCard($('ul.deck li'),true);
-	 },3000);
+	 },5000);
 	setTimeout(function(){
 		blockCard($('ul.deck li'),false);
-	},3200);	
+	},5200);	
 
 }
 
@@ -342,6 +346,15 @@ function blockCard(objetoSelecionado, blockOrDes){
 			objetoSelecionado.css("pointer-events","auto");
 
 		}
+	}
+
+}
+
+function locksOrUnlocksAll(allOrNothing){
+	if(allOrNothing == true){
+		blockCard($('ul.deck li'),true);
+	}else{
+		blockCard($('ul.deck li'),true);
 	}
 
 }
