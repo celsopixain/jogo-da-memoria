@@ -93,6 +93,9 @@
             </li>
         </ul>
                 <!-- Modal Erro -->
+                <!-- 
+                <button  class="w3-btn w3-white w3-border w3-round-large" onclick="document.getElementById('id02').style.display='block'">modal</button>
+                -->
 
                 <div id="id01" class="w3-modal">
                   <div class="w3-modal-content w3-animate-bottom">
@@ -100,13 +103,14 @@
                     <header  class="w3-container w3-red"> 
                       <span onclick="document.getElementById('id01').style.display='none', embaralhar()" 
                       class="w3-button w3-display-topright">&times;</span>
-                      <h4>YOU LOSE!!!</h4>
+                      <h4>VOCÊ PERDEU!!!</h4>
                     </header>
                     <div class="w3-container">
                     <picture>
                       <img class="img-erro" src="./img/erro.png"  >
                     </picture>
                       <button  class="w3-btn w3-white w3-border w3-round-large" onclick="document.getElementById('id01').style.display='none';embaralhar();">Tente Novamente</button>
+                      
                     </div>
              
                   </div>
@@ -122,7 +126,7 @@
                     <header class="w3-container w3-teal"> 
                       <span onclick="document.getElementById('id02').style.display='none', embaralhar()" 
                       class="w3-button w3-display-topright">&times;</span>
-                      <h3>Congratulations You Won!!!</h3>
+                      <h3>PARABÉNS VOCÊ GANHOU!!!</h3>
                     </header>
                     <div class="w3-container">
                         <section>
@@ -130,6 +134,9 @@
                                 <img  class="img-erro" src="./img/correto2.jpeg" >
                             </picture>
                         <button class="w3-btn w3-white w3-border w3-round-large" onclick="document.getElementById('id02').style.display='none';embaralhar();">Tente Novamente</button>
+                        <picture>
+                          <img src="./img/vencedor.jpeg">
+                        </picture>
                         </section>
                     </div>
              

@@ -41,6 +41,7 @@ var modal_02 = document.getElementById('id02');
 var cores = ["#EE82EE","#A9A9A9","#40E0D0","#FFFF00" ,"#F0E68C","#DC143C","#7FFF00","#F4A460"];
 var indice_cor = 0;
 var lista_cartas_reais = [];
+var vitorias = 0;
 
 // When the user clicks anywhere outside of the modal, close it
 window.onclick = function(event) {
@@ -79,12 +80,16 @@ $('ul.deck li').each(function(index, value){
 			if(lista_selecionados.length <= 1){
 				
 				open_or_close_card(true,selected);
+				blockCard(selected,true);	
+
 				lista_cartas_reais[0] = $(this);
-				selected_before = selected;	
+				selected_before = selected;
 				
 				}	
 
 			if(lista_selecionados.length == 2){
+				blockCard(selected_before,true);	
+				blockCard(selected,true);	
 				
 				lista_cartas_reais[1] = $(this);
 				
@@ -92,16 +97,14 @@ $('ul.deck li').each(function(index, value){
 
 				}else{
 					open_or_close_card(true,selected);
-					
-			
 
 					if(lista_selecionados[0] === lista_selecionados[1] ){
-						correctCard(selected_before,false);
+						efectOnTheCorrectCard(selected_before,false);
 						if(cores[indice_cor]!= null){
 							areTheSame(cores[indice_cor]);
 							indice_cor++;
-							lista_cartas_reais[0].css("pointer-events","none");
-							lista_cartas_reais[1].css("pointer-events","none");
+							blockCard(lista_cartas_reais[0], true);
+							blockCard(lista_cartas_reais[1], true);
 							lista_cartas_reais = [];
 						}
 
@@ -115,7 +118,7 @@ $('ul.deck li').each(function(index, value){
 									open_or_close_card(false,selected_before);
 								},1000);
 							}
-		
+						blockCard(selected_before,false);
 						notAreTheSame();
 						erros = erros-1;
 						$('.moves').text(erros);
@@ -133,16 +136,13 @@ $('ul.deck li').each(function(index, value){
 			}
 
 			if(lista_selecionados.length == 2){
-				if(isOnTheList(nomeCLassFirst)){
 
+				if(pares){
+					lista_selecionados.splice(0,2);
 				}else{
+					lista_selecionados.splice(0,2);
+				}
 
-					if(pares){
-						lista_selecionados.splice(0,2);
-					}else{
-						lista_selecionados.splice(0,2);
-					}
-				}		
 
 			}
 
@@ -209,7 +209,7 @@ function areTheSame(cor){
 	setTimeout(function(){ selected.css('background-color',cor); }, 300);
 	selected_before.css('background-color',cor);
 	
-	setTimeout(function(){ correctCard(selected,true); }, 200);
+	setTimeout(function(){ efectOnTheCorrectCard(selected,true); }, 200);
 	
 	addClasstToListFound(selected.children().attr('class'));
 	pares = true;
@@ -226,12 +226,14 @@ function notAreTheSame(){
 	}
 	pares = false;
 	lista_selecionados.splice(0,2);
-	
+	setTimeout(function(){
+		blockCard(selected,false);
+	},1000);
 }
 	
 
 function embaralhar(){
-	
+	$(this).css("pointer-events", "auto");
 	var list = [];
 	$('.deck i').each(function(){
 		list.push($(this).attr('class'));
@@ -257,7 +259,7 @@ function novoJogo(){
 		if($('ul.deck li').hasClass('open show')){
 			managerClassInHTML($('ul.deck li'),'open show',0);
 		}
-		$(this).css("pointer-events", "auto");
+		
 
 	})
 	$('.stars li i').each(function(){
@@ -267,6 +269,7 @@ function novoJogo(){
 		}
 	})
 
+	blockCard($('ul.deck li'),false);
 
 	selected = null;
 	selected_before = null;
@@ -308,9 +311,7 @@ function open_or_close_card(openORClose, card){
 
 }
 
-function correctCard(cartaSelecionada, aux){
-	// console.log('correctCard');
-	// console.log('cartaSelecionada: '+cartaSelecionada.children().attr('class'));
+function efectOnTheCorrectCard(cartaSelecionada, aux){
 	if(aux == true){
 		cartaSelecionada.animate({height:"80px"},200);
 		cartaSelecionada.animate({height:"125px"},300);
@@ -322,7 +323,25 @@ function correctCard(cartaSelecionada, aux){
 }
 
 function iniciarJogo(){
+	blockCard($('ul.deck li'),true);
 	open_or_close_card(true,$('ul.deck li'));
-	setTimeout(function(){ open_or_close_card(false,$('ul.deck li')); },3000);
+	setTimeout(function(){ open_or_close_card(false,$('ul.deck li'));
+							blockCard($('ul.deck li'),true);
+	 },3000);
+	setTimeout(function(){
+		blockCard($('ul.deck li'),false);
+	},3200);	
+
+}
+
+function blockCard(objetoSelecionado, blockOrDes){
+	if(objetoSelecionado != null){
+		if(blockOrDes == true){
+			objetoSelecionado.css("pointer-events","none");
+		}else{
+			objetoSelecionado.css("pointer-events","auto");
+
+		}
+	}
 
 }
