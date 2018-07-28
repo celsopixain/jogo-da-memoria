@@ -33,7 +33,7 @@ var lista_card;
 var lista_encontrados = [];
 var nomeCLassFirst;
 var nomeCLassSecund;
-var erros = 3;
+var erros = 4;
 var stars = [];
 var wins = 0;
 var modal_01 = document.getElementById('id01');
@@ -53,7 +53,6 @@ window.onclick = function(event) {
   	embaralhar();
   }
 }
-
 
 
 stars = $('.stars li').children();
@@ -215,7 +214,9 @@ function areTheSame(cor){
 	if(lista_encontrados.length == 8){
 		document.getElementById('id02').style.display='block';
 		vitorias++;
+		$('.qnt_vitorias').text(getVitorias());
 	}
+
 
 }
 
@@ -278,7 +279,7 @@ function novoJogo(){
 	lista_encontrados = [];
 	nomeCLassFirst = null;
 	nomeCLassSecund = null
-	erros = 3;
+	erros = 4;
 	indice_cor = 0;
 	$('.moves').text(erros);
 	iniciarJogo();
@@ -305,12 +306,8 @@ function open_or_close_card(openORClose, card){
 			setTimeout(function(){ card.css('transform','rotateY(130deg)'); }, 200);
 			setTimeout(function(){ card.css('transform','rotateY(180deg)'); }, 250);
 			setTimeout(function(){ blockCard($('ul.deck li'),false);}, 260);
-			
-
 		}
-		
 	}
-
 }
 
 function efectOnTheCorrectCard(cartaSelecionada, aux){
@@ -320,7 +317,6 @@ function efectOnTheCorrectCard(cartaSelecionada, aux){
 	}else{
 		cartaSelecionada.animate({height:"80px"},300);
 		cartaSelecionada.animate({height:"125px"},450);
-
 	}
 }
 
@@ -342,10 +338,8 @@ function blockCard(objetoSelecionado, blockOrDes){
 			objetoSelecionado.css("pointer-events","none");
 		}else{
 			objetoSelecionado.css("pointer-events","auto");
-
 		}
 	}
-
 }
 
 function locksOrUnlocksAll(allOrNothing){
@@ -354,5 +348,8 @@ function locksOrUnlocksAll(allOrNothing){
 	}else{
 		blockCard($('ul.deck li'),true);
 	}
+}
 
+function getVitorias(){
+	return vitorias;
 }
