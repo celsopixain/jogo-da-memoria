@@ -17,7 +17,7 @@ body {
 }
 
 body {
-    background: #ffffff url('../img/geometry2.png'); /* Background pattern from Subtle Patterns */
+    background: #ffffff url('../img/geometry2.png'); 
     font-family: 'Coda', cursive;
 }
 
@@ -174,8 +174,8 @@ span{
 }
 
 header h2{
-font-family: 'Fredericka the Great', cursive;
-font-size: 50px;
+    font-family: 'Fredericka the Great', cursive;
+    font-size: 50px;
 }
 
 

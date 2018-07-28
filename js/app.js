@@ -43,7 +43,6 @@ var indice_cor = 0;
 var lista_cartas_reais = [];
 var vitorias = 0;
 
-// When the user clicks anywhere outside of the modal, close it
 window.onclick = function(event) {
   if (event.target == modal_01) {
     modal_01.style.display = "none";
@@ -166,7 +165,6 @@ function turnOffEfect(){
 
 		setTimeout(function(){open_or_close_card(false, selected);
 			if(selected != null)selected.css('background','#2e3d49');
-			console.log('entrou aqui: '+' '+selected_before);
 		},1000);
 	}
 	
