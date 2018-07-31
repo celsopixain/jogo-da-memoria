@@ -1,16 +1,9 @@
-/*
- * Create a list that holds all of your cards
- */
+/**
+* @description Função que realizada a randomização de uma lista
+* @param {array} array - Lista de Valores passada, para que retorne outra randomizada 
+* @returns {array} Retorna lista randomizada
+*/
 
-
-/*
- * Display the cards on the page
- *   - shuffle the list of cards using the provided "shuffle" method below
- *   - loop through each card and create its HTML
- *   - add each card's HTML to the page
- */
-
-// Shuffle function from http://stackoverflow.com/a/2450976
 function shuffle(array) {
     var currentIndex = array.length, temporaryValue, randomIndex;
 
@@ -25,6 +18,14 @@ function shuffle(array) {
     return array;
 }
 
+/**
+* @description Nesse bloco até a próxima função são declaradas várias variaveis, alem das chamadas de várias 
+	outras funções antes do movimento principal, Sendo entao, realizado um 'each' no objeto jQuery para 
+	verificar os clicks de cada 'card' e efetuar a verificação conforme cada duas cartas a 'selected' a atual e a 
+	'selected_before' carta anterior, vários processos de verificação e modificação sobre a interação da carta é 
+	realizado dentro desse loop, incluindo a chamada de várias funções declaradas mais adiante. 
+*/
+
 var selected;
 var selected_before;
 var pares = false;
@@ -33,12 +34,12 @@ var lista_card;
 var lista_encontrados = [];
 var nomeCLassFirst;
 var nomeCLassSecund;
-var erros = 4;
+var erros = 5;
 var stars = [];
 var wins = 0;
 var modal_01 = document.getElementById('id01');
 var modal_02 = document.getElementById('id02');
-var cores = ["#EE82EE","#A9A9A9","#40E0D0","#FFFF00" ,"#F0E68C","#DC143C","#7FFF00","#F4A460"];
+var cores = ["#ee82ee","#a9a9a9","#40e0d0","#ffff00" ,"#f0e68c","#dc143c","#7fff00","#f4a460"];
 var indice_cor = 0;
 var lista_cartas_reais = [];
 var vitorias = 0;
@@ -54,22 +55,12 @@ window.onclick = function(event) {
   }
 }
 
-
 stars = $('.stars li').children();
-
 iniciarJogo();
-
-/*window.onload = initPage;
-function initPage(){
-	embaralhar();
-}*/
 
 $('ul.deck li').each(function(index, value){
 		$(this).click(function(){
-			
-
 			selected = $(this);
-			
 
 			nomeCLassFirst = selected.children().attr('class');
 
@@ -79,7 +70,6 @@ $('ul.deck li').each(function(index, value){
 				
 				open_or_close_card(true,selected);
 				blockCard(selected,true);	
-
 				lista_cartas_reais[0] = $(this);
 				selected_before = selected;
 				
@@ -88,48 +78,42 @@ $('ul.deck li').each(function(index, value){
 			if(lista_selecionados.length == 2){
 				blockCard(selected_before,true);	
 				blockCard(selected,true);	
-				
 				lista_cartas_reais[1] = $(this);
-				
-				if(isOnTheList(nomeCLassFirst)){
+				open_or_close_card(true,selected);
+
+				if(lista_selecionados[0] === lista_selecionados[1] ){
+					efectOnTheCorrectCard(selected_before,false);
+					if(cores[indice_cor]!= null){
+						areTheSame(cores[indice_cor]);
+						indice_cor++;
+						blockCard(lista_cartas_reais[0], true);
+						blockCard(lista_cartas_reais[1], true);
+						lista_cartas_reais = [];
+					}
 
 				}else{
-					open_or_close_card(true,selected);
-
-					if(lista_selecionados[0] === lista_selecionados[1] ){
-						efectOnTheCorrectCard(selected_before,false);
-						if(cores[indice_cor]!= null){
-							areTheSame(cores[indice_cor]);
-							indice_cor++;
-							blockCard(lista_cartas_reais[0], true);
-							blockCard(lista_cartas_reais[1], true);
-							lista_cartas_reais = [];
+					
+					lista_cartas_reais = [];
+					turnOffEfect();
+					setTimeout(function(){ blockCard($('ul.deck li'),true);}, 100);
+					if(selected_before != null){
+							setTimeout(function(){
+								open_or_close_card(false,selected_before);
+							},1000);
+						}
+					blockCard(selected_before,false);
+					notAreTheSame();
+					erros = erros-1;
+					$('.moves').text(erros);
+					
+					$('.stars li i').each(function(){
+						if($(this).attr('class') === "fa fa-star"){
+							managerClassInHTML($(this),"fa-star",0);
+							return false;	
 						}
 
-					}else{
-						
-						lista_cartas_reais = [];
-						turnOffEfect();
-						setTimeout(function(){ blockCard($('ul.deck li'),true);}, 100);
-						if(selected_before != null){
-								setTimeout(function(){
-									open_or_close_card(false,selected_before);
-								},1000);
-							}
-						blockCard(selected_before,false);
-						notAreTheSame();
-						erros = erros-1;
-						$('.moves').text(erros);
-						
-						$('.stars li i').each(function(){
-							if($(this).attr('class') === "fa fa-star"){
-								managerClassInHTML($(this),"fa-star",0);
-								return false;	
-							}
-
-						})
-						
-					}
+					})
+					
 				}
 			}
 
@@ -140,8 +124,6 @@ $('ul.deck li').each(function(index, value){
 				}else{
 					lista_selecionados.splice(0,2);
 				}
-
-
 			}
 
 			nomeCLassSecund = $(this).children().attr('class');
@@ -151,6 +133,10 @@ $('ul.deck li').each(function(index, value){
 
 });
 
+/**
+* @description Método que adiciona o efeito da carta, sendo esse a cor de seleção e a exibição 
+	do elemento filho de '.card'
+*/
 function turnOnEfect() {
 	if(selected_before != null){
 		setTimeout(function(){managerClassInHTML(selected_before, "open show", 1);
@@ -158,6 +144,10 @@ function turnOnEfect() {
 	}
 }
 
+/**
+* @description Método que remove o efeito da carta, sendo esse a cor de seleção e a exibição 
+	do elemento filho de '.card'
+*/
 function turnOffEfect(){
 	
 	if(selected != null){
@@ -169,30 +159,23 @@ function turnOffEfect(){
 	
 }
 	
-function isOnTheList(objetoClicado){
-	if(lista_encontrados.indexOf(objetoClicado) == -1){
-		return false;
-	}else{
-		return true;
-	}
-}
-
+/**
+* @description Função que adiciona o objeto encontrado, sendo esse apenas quando é localizado um par, 
+	a uma lista de encontrados 
+* @param {string} objetoEncontrado - Nome da Classe do objeto filho localizado
+*/
 function addClasstToListFound(objetoEncontrado){
 	lista_encontrados.push(objetoEncontrado);
 }
 
-function getList(){
-	lista_card = $('li');
-	return lista_card;
-}
-
-function randomCards(){
-	var list_random;
-	list_random = shuffle(getList());
-
-}
-
-
+/**
+* @description Função que gerencia a inclusão ou exclusão de Classes css para o atributo 'class' do elemento,
+	conforme o ultimo parametro passado.
+* @constructor
+* @param {string} card - Elemento que irá adicionar ou receber a classe
+* @param {string} nameOfClass - Nome da classe css que será adicionada
+* @param {string} addOrRemove - Para de decisão para definir se adiciona ou remove a classe
+*/
 function managerClassInHTML(card, nameOfClass, addOrRemove){
 	if(addOrRemove == 1 && card != null){
 		card.addClass(nameOfClass);		
@@ -202,12 +185,18 @@ function managerClassInHTML(card, nameOfClass, addOrRemove){
 	}
 }
 
+/**
+* @description Função que gerencia uma série de funçoes quando se localiza os pares, sendo esse;
+ 	adiciona css as duas cartas e efeito de 'flip' nas cartas, salva o nome dos 
+	elementos encontrados em uma lista (para que seja possível verificar se o jogo está completo),
+	atribui valor a variavel 'pares', reinicializa a lista de cartas selecionadas e também 
+	conta o numero de vitórias 
+* @param {string} cor - código da cor que será alterada	
+*/
 function areTheSame(cor){
 	setTimeout(function(){ selected.css('background-color',cor); }, 300);
 	selected_before.css('background-color',cor);
-	
 	setTimeout(function(){ efectOnTheCorrectCard(selected,true); }, 200);
-	
 	addClasstToListFound(selected.children().attr('class'));
 	pares = true;
 	lista_selecionados.splice(0,2);
@@ -216,10 +205,16 @@ function areTheSame(cor){
 		vitorias++;
 		$('.qnt_vitorias').text(getVitorias());
 	}
-
-
 }
 
+/**
+* @description Função que efetua outras ações quando o par nao está correto; 
+	verifica o numero de erros para que se houver necessidade 
+	irá chamar o modal para terminar após finalizar os limites das jogadas
+* @constructor
+* @param {string} title - The title of the book
+* @param {string} author - The author of the book
+*/
 function notAreTheSame(){
 	if(erros <= 1 ){
 		document.getElementById('id01').style.display='block';
@@ -231,18 +226,17 @@ function notAreTheSame(){
 	},1000);
 }
 	
-
+/**
+* @description Função embaralha as cartas e chama o método de novo jogo
+*/
 function embaralhar(){
 	$(this).css("pointer-events", "auto");
 	var list = [];
 	$('.deck i').each(function(){
 		list.push($(this).attr('class'));
 	})
-
 	list = shuffle(list);	
-	
 	$('.deck i').each(function(index){
-
 		$(this).removeClass();
 		$(this).addClass(list[index]);
 
@@ -251,6 +245,9 @@ function embaralhar(){
 
 }
 
+/**
+* @description Função que inicializa as váriaveis e muda o estilo das cartas iniciando-as novamente.
+*/
 function novoJogo(){
 	
 	$('ul.deck li').each(function(){
@@ -259,18 +256,14 @@ function novoJogo(){
 		if($('ul.deck li').hasClass('open show')){
 			managerClassInHTML($('ul.deck li'),'open show',0);
 		}
-		
-
 	})
 	$('.stars li i').each(function(){
 		if($(this) != null){
 			managerClassInHTML($(this),"fa-star",1);
-					
 		}
 	})
 
 	blockCard($('ul.deck li'),false);
-
 	selected = null;
 	selected_before = null;
 	pares = false;
@@ -279,13 +272,20 @@ function novoJogo(){
 	lista_encontrados = [];
 	nomeCLassFirst = null;
 	nomeCLassSecund = null
-	erros = 4;
+	erros = 5;
 	indice_cor = 0;
 	$('.moves').text(erros);
 	iniciarJogo();
 
 }
 
+/**
+* @description Metodo que determinada se irá virar ou desvitar a carta passada por parâmetro
+	efetuando o efeito de 'flip' na carta passada por parametro
+* @constructor
+* @param {boolean} openORClose - Variavel que indica se irá fechar ou abrir a carta selecionada
+* @param {objeto} card - Carta selecionada
+*/
 function open_or_close_card(openORClose, card){
 	if(card != null){
 		if(openORClose == true){
@@ -297,8 +297,6 @@ function open_or_close_card(openORClose, card){
 			setTimeout(function(){ card.addClass('open show'); }, 250);
 				
 		}else {
-			
-			
 			setTimeout(function(){ card.css('background','#2e3d49'); }, 100);
 			setTimeout(function(){ card.removeClass('open show'); }, 100);
 			setTimeout(function(){ card.css('transform','rotateY(50deg)'); }, 100);
@@ -310,6 +308,12 @@ function open_or_close_card(openORClose, card){
 	}
 }
 
+/**
+* @description Função que aplica o efeito na carta após ocorrer o acerto do par
+* @constructor
+* @param {objeto} cartaSelecionada - carta selecionada
+* @param {boolean} aux - variavel que indica o caminho que será tomado
+*/
 function efectOnTheCorrectCard(cartaSelecionada, aux){
 	if(aux == true){
 		cartaSelecionada.animate({height:"80px"},200);
@@ -320,18 +324,32 @@ function efectOnTheCorrectCard(cartaSelecionada, aux){
 	}
 }
 
+/**
+* @description Função que inicia o jogo, bloqueando as cartas para que nao haja nenhum click 
+	enquato as cartas são exibidas para a memorizaçaõ do jogador.
+*/
 function iniciarJogo(){
+	/*Caso seja decidido que o jogo nao terá um padrão de posições
+	 logo no inicio e já comece com todos embaralhados*/
+	/*window.onload = initPage;
+	function initPage(){
+		embaralhar();
+	}*/
 	blockCard($('ul.deck li'),true);
 	open_or_close_card(true,$('ul.deck li'));
 	setTimeout(function(){ open_or_close_card(false,$('ul.deck li'));
 							blockCard($('ul.deck li'),true);
-	 },5000);
+	 },7000);
 	setTimeout(function(){
 		blockCard($('ul.deck li'),false);
-	},5200);	
-
+	},7200);	
 }
 
+/**
+* @description Função que realiza o bloqueio/desbloqueio da carta para que nao seja possível clica-la   
+* @param {objeto} objetoSelecionado - cartas selecionadas a serem bloqueadas
+* @param {boolean} blockOrDes - Váriavel que irá indicar se bloqueia ou desbloqueia a carta
+*/
 function blockCard(objetoSelecionado, blockOrDes){
 	if(objetoSelecionado != null){
 		if(blockOrDes == true){
@@ -342,6 +360,10 @@ function blockCard(objetoSelecionado, blockOrDes){
 	}
 }
 
+/**
+* @description Função que realiza o bloqueio/desbloqueio de todas as cartas    
+* @param {boolean} allOrNothing - Váriavel que irá indicar se bloqueia ou desbloqueia as cartas
+*/
 function locksOrUnlocksAll(allOrNothing){
 	if(allOrNothing == true){
 		blockCard($('ul.deck li'),true);
@@ -350,6 +372,9 @@ function locksOrUnlocksAll(allOrNothing){
 	}
 }
 
+/**
+* @description Função retorna a variavel que contem o numero de vitórias    
+*/
 function getVitorias(){
 	return vitorias;
 }

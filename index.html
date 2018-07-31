@@ -5,7 +5,6 @@
     <title>Jogo da Memória</title>
     <meta name="description" content="">
     <link rel="stylesheet prefetch" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.1/css/font-awesome.min.css">
-    
     <link rel="stylesheet prefetch" href="https://fonts.googleapis.com/css?family=Coda">
     <link rel="stylesheet" href="css/app.css">
     <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
@@ -30,10 +29,11 @@
                 <li><i class="fa fa-star"></i></li>
                 <li><i class="fa fa-star"></i></li>
                 <li><i class="fa fa-star"></i></li>
+                <li><i class="fa fa-star"></i></li>
                 
             </ul>
             <br>
-            <span class="moves" value="erros"> 4 </span> 
+            <span class="moves" value="erros"> 5 </span> 
             
             <div class="restart">
                 <button class="w3-button w3-teal">
@@ -103,15 +103,16 @@
                   <div class="w3-modal-content w3-animate-bottom">
 
                     <header  class="w3-container w3-red"> 
-                      <span onclick="document.getElementById('id01').style.display='none', embaralhar()" 
-                      class="w3-button w3-display-topright">&times;</span>
+                      <span onclick="document.getElementById('id01').style.display='none', embaralhar()" class="w3-button w3-display-topright">&times;</span>
                       <h4>VOCÊ PERDEU!!!</h4>
                     </header>
                     <div class="w3-container">
                     <picture>
-                      <img class="img-erro" src="./img/erro.png"  >
+                      <img class="img-erro" src="./img/erro.png" alt="imagem representativa de incorreto" >
                     </picture>
-                      <button  class="w3-btn w3-white w3-border w3-round-large" onclick="document.getElementById('id01').style.display='none';embaralhar();">Tente Novamente</button>
+                      <button  class="w3-btn w3-white w3-border w3-round-large"
+                       onclick="document.getElementById('id01').style.display='none';embaralhar();">Tente Novamente
+                   </button>
                       
                     </div>
              
@@ -126,18 +127,17 @@
                   <div class="w3-modal-content w3-animate-zoom">
 
                     <header class="w3-container w3-teal"> 
-                      <span onclick="document.getElementById('id02').style.display='none', embaralhar()" 
-                      class="w3-button w3-display-topright">&times;</span>
+                      <span onclick="document.getElementById('id02').style.display='none', embaralhar()" class="w3-button w3-display-topright">&times;</span>
                       <h3>PARABÉNS VOCÊ GANHOU!!!</h3>
                     </header>
                     <div class="w3-container">
                         <section>
                             <picture >
-                                <img  class="img-erro" src="./img/correto2.jpeg" >
+                                <img  class="img-erro" src="./img/correto2.jpeg" alt="imagem representativa de correto" >
                             </picture>
                         <button class="w3-btn w3-white w3-border w3-round-large" onclick="document.getElementById('id02').style.display='none';embaralhar();">Tente Novamente</button>
                         <picture>
-                          <img src="./img/vencedor.jpeg">
+                          <img src="./img/vencedor.jpeg" alt="imagem de vencedor">
                         </picture>
                         </section>
                     </div>

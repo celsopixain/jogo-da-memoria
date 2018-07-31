@@ -33,10 +33,6 @@ h1 {
     font-weight: 300;
 }
 
-/*
- * Styles for the deck of cards
- */
-
 .deck {
     width: 660px;
     min-height: 680px;
@@ -85,10 +81,6 @@ span{
     position: relative;
     text-align: right;
 }
-/*
- * Styles for the Score Panel
- */
-
 .score-panel {
     text-align: left;
     width: 420px;
@@ -145,8 +137,6 @@ span{
                 inset -2px -2px 3px rgba(0, 0, 0, .6);
 }
 
-
-
 #seta-restart{
     font-size: 25px;
 }
@@ -166,7 +156,6 @@ span{
     width: 125px;
     height: 125px;
     padding: 17px;
-    /*background-color: linear-gradient(160deg, #02ccba 0%, #aa7ecd 100%);*/
 }
 
 .w3-modal-content{
@@ -194,7 +183,7 @@ header h2{
 }
 
 .qnt_vitorias{
-    width: 7.5%;
+    width: 6.0%;
     border: 4px solid grey;
     font-size: 24px;
     text-align: center;
