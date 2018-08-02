@@ -1,3 +1,12 @@
+window.onload = initPage;
+	function initPage(){
+		setTimeout(function(){
+	document.getElementById('id03').style.display='block';
+},0);
+		/*setTimeout(function(){
+			iniciarJogo();
+		},5000);*/
+}
 /**
 * @description Função que realizada a randomização de uma lista
 * @param {array} array - Lista de Valores passada, para que retorne outra randomizada 
@@ -37,14 +46,15 @@ var nomeCLassSecund;
 var erros = 5;
 var stars = [];
 var wins = 0;
-var modal_01 = document.getElementById('id01');
-var modal_02 = document.getElementById('id02');
 var cores = ["#ee82ee","#a9a9a9","#40e0d0","#ffff00" ,"#f0e68c","#dc143c","#7fff00","#f4a460"];
 var indice_cor = 0;
 var lista_cartas_reais = [];
 var vitorias = 0;
 
 window.onclick = function(event) {
+var modal_01 = document.getElementById('id01');
+var modal_02 = document.getElementById('id02');
+var modal_03 = document.getElementById('id03');
   if (event.target == modal_01) {
     modal_01.style.display = "none";
     embaralhar();
@@ -53,10 +63,14 @@ window.onclick = function(event) {
   	modal_02.style.display = "none";
   	embaralhar();
   }
+  if(event.target == modal_03){
+  	modal_03.style.display = "none";
+  	embaralhar();
+  }
 }
 
 stars = $('.stars li').children();
-iniciarJogo();
+
 
 $('ul.deck li').each(function(index, value){
 		$(this).click(function(){
