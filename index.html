@@ -8,7 +8,7 @@
     <link rel="stylesheet prefetch" href="https://fonts.googleapis.com/css?family=Coda">
     <link rel="stylesheet" href="css/app.css">
     <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
-    <link href="https://fonts.googleapis.com/css?family=Black+Ops+One|Fredericka+the+Great|Merienda|Black+Ops+One" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Black+Ops+One|Fredericka+the+Great|Merienda|Black+Ops+One|Indie+Flower|Permanent+Marker|Archivo" rel="stylesheet">
     <title>Jogo da Memória</title>
     
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
@@ -26,14 +26,12 @@
                 <li><i class="fa fa-star"></i></li>
                 <li><i class="fa fa-star"></i></li>
                 <li><i class="fa fa-star"></i></li>
-                
-                
             </ul>
             <br>
             <span class="moves" value="erros"> </span> 
             
             <div class="restart">
-                <button class="w3-button w3-teal">
+                <button class="w3-button w3-teal w3-round-large">
                     <i class="fa fa-repeat" id="seta-restart" onclick="embaralhar()" title="Reiniciar"> Novo</i>
                 </button>
 
@@ -92,32 +90,7 @@
                 <i class="fa fa-cube"></i>
             </li>
         </ul>
-                <!-- Modal Erro -->
-                <!-- 
-                <button  class="w3-btn w3-white w3-border w3-round-large" onclick="document.getElementById('id01').style.display='block'">Perdeu</button>
-                -->
             
-
-                <div id="id01" class="w3-modal">
-                  <div class="w3-modal-content w3-animate-bottom">
-
-                    <header  class="w3-container w3-red"> 
-                      <span onclick="document.getElementById('id01').style.display='none', embaralhar()" class="w3-button w3-display-topright">&times;</span>
-                      <h4>VOCÊ PERDEU!!!</h4>
-                    </header>
-                    <div class="w3-container">
-                    <picture>
-                      <img class="img-erro" src="./img/erro.png" alt="imagem representativa de incorreto" >
-                    </picture>
-                      <button  class="w3-btn w3-white w3-border w3-round-large"
-                       onclick="document.getElementById('id01').style.display='none';embaralhar();">Tente Novamente
-                   </button>
-                      
-                    </div>
-             
-                  </div>
-                </div>
-            <!-- Fim Modal Erro -->
 
             <!-- Modal Vencedor 
             <button class="w3-btn w3-white w3-border w3-round-large" onclick="document.getElementById('id02').style.display='block', embaralhar()" >Venceu</button>
@@ -132,14 +105,38 @@
                       <h3>PARABÉNS VOCÊ GANHOU!!!</h3>
                     </header>
                     <div class="w3-container">
-                        <section>
-                            <picture >
+                        <section class="sessao-vencedor">
+                            <div class="div-tempo">
+                                <br>
+
+                                <table class="w3-table-all w3-centered w3-large">
+                                    <tr class="w3-light-red">
+                                      <th>Tempo Percorrido</th>
+                                      <th>Estrelas</th>
+                                    </tr>
+                                    <tr>
+                                      <td id="tempo-decorrente">02:00</td>
+                                      <td id="winning-stars">
+                                        <ul class="stars">
+                                            <li><i class="fa fa-star"></i></li>
+                                            <li><i class="fa fa-star"></i></li>
+                                            <li><i class="fa fa-star"></i></li>
+                                        </ul>
+                                      </td>
+                                    </tr>
+                                </table>
+                                
+                            </div>
+                            <div>
+                           <!--  <picture >
                                 <img  class="img-erro" src="./img/correto2.jpeg" alt="imagem representativa de correto" >
-                            </picture>
-                        <button class="w3-btn w3-white w3-border w3-round-large" onclick="document.getElementById('id02').style.display='none';embaralhar();">Tente Novamente</button>
-                        <picture>
+                            </picture> -->
+                            </div>
+
+                        <button class="w3-btn w3-blue w3-border w3-round-large" onclick="document.getElementById('id02').style.display='none';embaralhar();">Tente Novamente</button>
+                      <!--   <picture>
                           <img src="./img/vencedor.jpeg" alt="imagem de vencedor">
-                        </picture>
+                        </picture> -->
                         </section>
                     </div>
              
@@ -155,18 +152,30 @@
 
                     <header class="w3-container w3-teal"> 
                       
-                      <h3>JOGO DA MEMÓRIA</h3>
+                      <h3>Jogo da Memória</h3>
                     </header>
                     <div class="w3-container">
-                        <section>
-                            <h2 class="w3-light-gray">As cartas permanecerão viradas por <strong>7 segundos</strong></h2>
-                            <h3 class="">Após, tente acertar os pares!!</h3>
-                            <h3>Boa Sorte!!</h3>
-                        <button class="w3-btn w3-block w3-white w3-border w3-border-blue w3-round-large" onclick="document.getElementById('id03').style.display='none';embaralhar();">Iniciar
-                        </button>
-                        
+                        <section >
+                            <p  class="w3-teal w3-round-large sessao-modal">Dentro de <strong>10 segundos </strong>os desenhos ficarão ocultos.</p>
+                            <!-- <h3 class="">Após, tente acertar os pares!!</h3> -->
+                            <p class="w3-blue-grey w3-round-large sessao-modal">Encontre-os o mais rápido que puder!</p>
+                            <p class="w3-teal w3-round-large sessao-modal">Boa Sorte!!</p>
                         </section>
+                            
                     </div>
+
+                    <footer class="w3-white">
+                        <div>
+                            <button class="w3-btn w3-blue w3-round" onclick="document.getElementById('id03').style.display='none';embaralhar();">
+                                Iniciar
+                            </button>
+                            
+                            
+                        </div>
+                        
+                    </footer>
+                        
+
              
                   </div>
                 </div>

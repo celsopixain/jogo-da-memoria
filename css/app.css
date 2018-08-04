@@ -20,6 +20,14 @@
     font-size: 72px!important;
 }
 }*/
+/* @media (min-width: 902px){
+    .w3-modal-content{
+        width: 600px!important;
+    } */
+
+.w3-modal-content{
+
+} 
 
 @media (max-width: 800px){
     .deck{
@@ -139,14 +147,14 @@
      }
     
     .score-panel .restart{
-        font-size: 7px;
+        font-size: 7px!importants;
      }
 
 }
 
 @media (max-width: 322px){
     .deck{
-        width: 320px!important ;
+        width: 310px!important ;
         min-height: 400px!important ;
     }
     .deck .card {
@@ -268,14 +276,20 @@ span{
     margin: 0 5px 0 0;
 }
 
+/*#winning-stars .stars{
+    margin: 0;
+    padding: 0;
+    display: inline-block!important;
+    margin: 0 5px 0 0;
+
+}*/
+
 .score-panel .stars li {
     list-style: none;
     display: inline-block;
 
 }
-.fa .fa-star{
-    font-size: 20px!important;
-}
+
 
 .score-panel .restart {
     width: 30%;
@@ -340,6 +354,7 @@ span{
 .w3-btn, .w3-button{
     font-size: 24px!important;
     float: inherit;
+
 }
 
 header h2{
@@ -369,4 +384,52 @@ header h2{
     border: 4px solid grey;
     font-size: 22px;
     text-align: center;
+}
+
+.sessao-modal {
+    font-size: 25px;
+    font-family: 'Archivo', sans-serif;
+    text-align: center;
+    /*font-family: 'Permanent Marker', cursive;*/
+}
+
+.button-inicial{
+    text-align: center!important;
+}
+
+.w3-white{
+    text-align: center!important;
+}
+
+.sessao-vencedor{
+
+    font-family: 'Black Ops One', cursive;
+    text-align: center!important;
+
+}
+
+.w3-blue .w3-border{
+    text-align: center!important;
+
+}
+
+#tempo-decorrente{
+    vertical-align: inherit!important;
+}
+
+.w3-table-all{
+    font-family: 'Black Ops One', cursive!important;
+
+}
+
+#winning-stars .stars li{
+    
+    list-style-type: none!important;
+    margin:auto!important;
+    float:none!important;
+    display: block!important;
+    display: inline-block!important;
+    margin: 0 5px 0 0!important;
+
+
 }

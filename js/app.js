@@ -44,25 +44,19 @@ var lista_encontrados = [];
 var nomeCLassFirst;
 var nomeCLassSecund;
 var erros = 0;
-var time = [];
+var time;
 var stars = [];
 var wins = 0;
 var cores = ["#ee82ee","#a9a9a9","#40e0d0","#ffff00" ,"#f0e68c","#dc143c","#7fff00","#f4a460"];
 var indice_cor = 0;
 var lista_cartas_reais = [];
 var vitorias = 0;
-var newTime;
-var minutos;
-var segundos;
+var minutosInicial;
+var segundosInicial;
 
 window.onclick = function(event) {
-var modal_01 = document.getElementById('id01');
 var modal_02 = document.getElementById('id02');
 var modal_03 = document.getElementById('id03');
-  if (event.target == modal_01) {
-    modal_01.style.display = "none";
-    embaralhar();
-  }
   if(event.target == modal_02){
   	modal_02.style.display = "none";
   	embaralhar();
@@ -113,7 +107,6 @@ $('ul.deck li').each(function(index, value){
 				}else{
 					verifyMoves();
 					getTempoJogo();
-					console.log('tempo: '+getTempoJogo());
 					lista_cartas_reais = [];
 					turnOffEfect();
 					setTimeout(function(){ blockCard($('ul.deck li'),true);}, 100);
@@ -125,8 +118,6 @@ $('ul.deck li').each(function(index, value){
 					blockCard(selected_before,false);
 					notAreTheSame();
 					erros ++;
-					//$('.moves').text(erros);
-					
 					
 				}
 			}
@@ -215,9 +206,8 @@ function areTheSame(cor){
 	pares = true;
 	lista_selecionados.splice(0,2);
 	if(lista_encontrados.length == 8){
+		document.getElementById('tempo-decorrente').textContent = getTempoJogo();
 		document.getElementById('id02').style.display='block';
-		vitorias++;
-		$('.qnt_vitorias').text(getVitorias());
 	}
 }
 
@@ -272,11 +262,6 @@ function novoJogo(){
 			managerClassInHTML($('ul.deck li'),'open show',0);
 		}
 	})
-	$('.stars li i').each(function(){
-		if($(this) != null){
-			managerClassInHTML($(this),"fa-star",1);
-		}
-	})
 
 	blockCard($('ul.deck li'),false);
 	selected = null;
@@ -289,8 +274,8 @@ function novoJogo(){
 	nomeCLassSecund = null
 	erros = 0;
 	indice_cor = 0;
-	// $('.moves').text(erros);
 	iniciarJogo();
+	addStarsModal();
 
 }
 
@@ -354,16 +339,16 @@ function iniciarJogo(){
 	open_or_close_card(true,$('ul.deck li'));
 	setTimeout(function(){ open_or_close_card(false,$('ul.deck li'));
 							blockCard($('ul.deck li'),true);
-	 },7000);
+	 },10000);
 	setTimeout(function(){
 		blockCard($('ul.deck li'),false);
-		var tempoInicial = new Date();
-		minutos = tempoInicial.getMinutes();
-		segundos = tempoInicial.getSeconds();
+		// var tempoInicial = new Date();
+		// minutosInicial = tempoInicial.getMinutes();
+		// segundosInicial = tempoInicial.getSeconds();
 		// console.log('inicio: '+minutos+':'+segundos);
-		time[2] = Date.now();
+		time = Date.now();
 		
-	},7200);
+	},10200);
 
  }
 
@@ -394,19 +379,11 @@ function locksOrUnlocksAll(allOrNothing){
 	}
 }
 
-/**
-* @description Função retorna a variavel que contem o numero de vitórias    
-*/
-function getVitorias(){
-	return vitorias;
-}
-
 function getTempoJogo(){
-	if(time[2] != null){
-		tempoAtual = (Date.now()-time[2])/1000;
+	if(time != null){
+		tempoAtual = (Date.now()-time)/1000;
 		return transforma_tempo(tempoAtual);
 	}
-	// return tempoDeJogo;
 }
 
 function transforma_tempo(seg){
@@ -430,19 +407,46 @@ function transforma_tempo(seg){
 
  function verifyMoves(){
  	if(erros ==  3){ 
-    	removeStars();
+    	removeStarsModal();
 	}
 	if(erros == 7 ){
-    	removeStars();
+    	removeStarsModal();
 	} 
  }
 
- function removeStars(){
+ function removeStarsModal(){
 		$('.stars li i').each(function(){
 			if($(this).attr('class') === "fa fa-star"){
 				managerClassInHTML($(this),"fa-star",0);
+				console.log('removeu stars inicial');
+
 				return false;	
 			}
 
 		})
+
+		$('.w3-container .sessao-vencedor #winning-stars ul li i').each(function(){
+			if($(this).attr('class') === "fa fa-star"){
+				managerClassInHTML($(this),"fa-star",0);
+				console.log('removeu stars modal');
+
+				return false;	
+			}
+
+		})
+
+ }
+
+ function addStarsModal(){
+	$('.stars li i').each(function(){
+		if($(this) != null){
+			managerClassInHTML($(this),"fa-star",1);
+		}
+	})
+	$('.w3-container .sessao-vencedor #winning-stars ul li i').each(function(){
+			managerClassInHTML($(this),"fa-star",1);
+
+
+	})
+	 	
  }
