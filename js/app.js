@@ -1,40 +1,3 @@
-window.onload = initPage;
-	function initPage(){
-		setTimeout(function(){
-	document.getElementById('id03').style.display='block';
-},0);
-		/*setTimeout(function(){
-			iniciarJogo();
-		},5000);*/
-}
-/**
-* @description Função que realizada a randomização de uma lista
-* @param {array} array - Lista de Valores passada, para que retorne outra randomizada 
-* @returns {array} Retorna lista randomizada
-*/
-
-function shuffle(array) {
-    var currentIndex = array.length, temporaryValue, randomIndex;
-
-    while (currentIndex !== 0) {
-        randomIndex = Math.floor(Math.random() * currentIndex);
-        currentIndex -= 1;
-        temporaryValue = array[currentIndex];
-        array[currentIndex] = array[randomIndex];
-        array[randomIndex] = temporaryValue;
-    }
-
-    return array;
-}
-
-/**
-* @description Nesse bloco até a próxima função são declaradas várias variaveis, alem das chamadas de várias 
-	outras funções antes do movimento principal, Sendo entao, realizado um 'each' no objeto jQuery para 
-	verificar os clicks de cada 'card' e efetuar a verificação conforme cada duas cartas a 'selected' a atual e a 
-	'selected_before' carta anterior, vários processos de verificação e modificação sobre a interação da carta é 
-	realizado dentro desse loop, incluindo a chamada de várias funções declaradas mais adiante. 
-*/
-
 var selected;
 var selected_before;
 var pares = false;
@@ -54,90 +17,121 @@ var vitorias = 0;
 var minutosInicial;
 var segundosInicial;
 
-window.onclick = function(event) {
-var modal_02 = document.getElementById('id02');
-var modal_03 = document.getElementById('id03');
-  if(event.target == modal_02){
-  	modal_02.style.display = "none";
-  	embaralhar();
-  }
-  if(event.target == modal_03){
-  	modal_03.style.display = "none";
-  	embaralhar();
-  }
+initialPage();
+clickOutToModal();
+stars = $('.stars li').children();
+controleCartas();
+
+
+/**
+* @description Função que chama o modal inicial de aviso sobre o tempo de exibição das cartas
+*/
+function initialPage(){
+
+	window.onload = initPage;
+		function initPage(){
+			setTimeout(function(){
+		document.getElementById('id03').style.display='block';
+		},0);
+	}
+}
+	
+/**
+* @description Nesse bloco até a próxima função são declaradas várias variaveis, alem das chamadas de várias 
+	outras funções antes do movimento principal, Sendo entao, realizado um 'each' no objeto jQuery para 
+	verificar os clicks de cada 'card' e efetuar a verificação conforme cada duas cartas a 'selected' a atual e a 
+	'selected_before' carta anterior, vários processos de verificação e modificação sobre a interação da carta é 
+	realizado dentro desse loop, incluindo a chamada de várias funções declaradas mais adiante. 
+*/
+function controleCartas(){
+
+	$('ul.deck li').each(function(index, value){
+			$(this).click(function(){
+				selected = $(this);
+
+				nomeCLassFirst = selected.children().attr('class');
+
+				lista_selecionados.push(nomeCLassFirst);
+
+				if(lista_selecionados.length <= 1){
+					
+					open_or_close_card(true,selected);
+					blockCard(selected,true);	
+					lista_cartas_reais[0] = $(this);
+					selected_before = selected;
+					
+					}	
+
+				if(lista_selecionados.length == 2){
+					blockCard(selected_before,true);	
+					blockCard(selected,true);	
+					lista_cartas_reais[1] = $(this);
+					open_or_close_card(true,selected);
+
+					if(lista_selecionados[0] === lista_selecionados[1] ){
+						efectOnTheCorrectCard(selected_before,false);
+						if(cores[indice_cor]!= null){
+							areTheSame(cores[indice_cor]);
+							indice_cor++;
+							blockCard(lista_cartas_reais[0], true);
+							blockCard(lista_cartas_reais[1], true);
+							lista_cartas_reais = [];
+						}
+						getTempoJogo();
+
+					}else{
+						verifyMoves();
+						getTempoJogo();
+						lista_cartas_reais = [];
+						turnOffEfect();
+						setTimeout(function(){ blockCard($('ul.deck li'),true);}, 100);
+						if(selected_before != null){
+								setTimeout(function(){
+									open_or_close_card(false,selected_before);
+								},1000);
+							}
+						blockCard(selected_before,false);
+						notAreTheSame();
+						erros ++;
+						
+					}
+				}
+
+				if(lista_selecionados.length == 2){
+
+					if(pares){
+						lista_selecionados.splice(0,2);
+					}else{
+						lista_selecionados.splice(0,2);
+					}
+				}
+
+				nomeCLassSecund = $(this).children().attr('class');
+				
+		});
+
+	});
 }
 
-stars = $('.stars li').children();
-	
+/**
+* @description Função que realizada a randomização de uma lista
+* @param {array} array - Lista de Valores passada, para que retorne outra randomizada 
+* @returns {array} Retorna lista randomizada
+*/
 
-$('ul.deck li').each(function(index, value){
-		$(this).click(function(){
-			selected = $(this);
+function shuffle(array) {
+    var currentIndex = array.length, temporaryValue, randomIndex;
 
-			nomeCLassFirst = selected.children().attr('class');
+    while (currentIndex !== 0) {
+        randomIndex = Math.floor(Math.random() * currentIndex);
+        currentIndex -= 1;
+        temporaryValue = array[currentIndex];
+        array[currentIndex] = array[randomIndex];
+        array[randomIndex] = temporaryValue;
+    }
 
-			lista_selecionados.push(nomeCLassFirst);
-
-			if(lista_selecionados.length <= 1){
-				
-				open_or_close_card(true,selected);
-				blockCard(selected,true);	
-				lista_cartas_reais[0] = $(this);
-				selected_before = selected;
-				
-				}	
-
-			if(lista_selecionados.length == 2){
-				blockCard(selected_before,true);	
-				blockCard(selected,true);	
-				lista_cartas_reais[1] = $(this);
-				open_or_close_card(true,selected);
-
-				if(lista_selecionados[0] === lista_selecionados[1] ){
-					efectOnTheCorrectCard(selected_before,false);
-					if(cores[indice_cor]!= null){
-						areTheSame(cores[indice_cor]);
-						indice_cor++;
-						blockCard(lista_cartas_reais[0], true);
-						blockCard(lista_cartas_reais[1], true);
-						lista_cartas_reais = [];
-					}
-					getTempoJogo();
-
-				}else{
-					verifyMoves();
-					getTempoJogo();
-					lista_cartas_reais = [];
-					turnOffEfect();
-					setTimeout(function(){ blockCard($('ul.deck li'),true);}, 100);
-					if(selected_before != null){
-							setTimeout(function(){
-								open_or_close_card(false,selected_before);
-							},1000);
-						}
-					blockCard(selected_before,false);
-					notAreTheSame();
-					erros ++;
-					
-				}
-			}
-
-			if(lista_selecionados.length == 2){
-
-				if(pares){
-					lista_selecionados.splice(0,2);
-				}else{
-					lista_selecionados.splice(0,2);
-				}
-			}
-
-			nomeCLassSecund = $(this).children().attr('class');
-			
-	});
-	
-
-});
-
+    return array;
+}
 /**
 * @description Método que adiciona o efeito da carta, sendo esse a cor de seleção e a exibição 
 	do elemento filho de '.card'
@@ -235,6 +229,7 @@ function notAreTheSame(){
 */
 function embaralhar(){
 	$(this).css("pointer-events", "auto");
+	blockCard($('#seta-restart'),true);
 	var list = [];
 	$('.deck i').each(function(){
 		list.push($(this).attr('class'));
@@ -329,12 +324,7 @@ function efectOnTheCorrectCard(cartaSelecionada, aux){
 	enquato as cartas são exibidas para a memorizaçaõ do jogador.
 */
 function iniciarJogo(){
-	/*Caso seja decidido que o jogo nao terá um padrão de posições
-	 logo no inicio e já comece com todos embaralhados*/
-	/*window.onload = initPage;
-	function initPage(){
-		embaralhar();
-	}*/
+	
 	blockCard($('ul.deck li'),true);
 	open_or_close_card(true,$('ul.deck li'));
 	setTimeout(function(){ open_or_close_card(false,$('ul.deck li'));
@@ -342,10 +332,7 @@ function iniciarJogo(){
 	 },10000);
 	setTimeout(function(){
 		blockCard($('ul.deck li'),false);
-		// var tempoInicial = new Date();
-		// minutosInicial = tempoInicial.getMinutes();
-		// segundosInicial = tempoInicial.getSeconds();
-		// console.log('inicio: '+minutos+':'+segundos);
+		blockCard($('#seta-restart'),false);
 		time = Date.now();
 		
 	},10200);
@@ -379,6 +366,10 @@ function locksOrUnlocksAll(allOrNothing){
 	}
 }
 
+/**
+* @description Função que busca o tempo de jogo do usuário em segundos e chama a outra função para formatar-lo   
+* @returns {String} retorna o tempo de com que o usuário gastou para localizar todos os pares. 
+*/
 function getTempoJogo(){
 	if(time != null){
 		tempoAtual = (Date.now()-time)/1000;
@@ -386,6 +377,11 @@ function getTempoJogo(){
 	}
 }
 
+/**
+* @description Função realiza a conversão dos segundos em minutos horas e segungos formatados hh:mm:ss   
+* @param {number} seg - Valor passado por parametro para conversão de horas, min e segundos
+* @returns {String} retorna o tempo de com que o usuário gastou para localizar todos os pares. 
+*/
 function transforma_tempo(seg){
               
 	function formataCasa(numero){
@@ -405,6 +401,9 @@ function transforma_tempo(seg){
  }
 
 
+/**
+* @description Função verifica os movimentos para que haja uma redução das estrelas do usuário conforme os erros   
+*/
  function verifyMoves(){
  	if(erros ==  3){ 
     	removeStarsModal();
@@ -414,12 +413,13 @@ function transforma_tempo(seg){
 	} 
  }
 
+/**
+* @description Função remove as estrelas via DOM tanto do modal quanto das em exibição na pagina inicial   
+*/
  function removeStarsModal(){
 		$('.stars li i').each(function(){
 			if($(this).attr('class') === "fa fa-star"){
 				managerClassInHTML($(this),"fa-star",0);
-				console.log('removeu stars inicial');
-
 				return false;	
 			}
 
@@ -428,8 +428,6 @@ function transforma_tempo(seg){
 		$('.w3-container .sessao-vencedor #winning-stars ul li i').each(function(){
 			if($(this).attr('class') === "fa fa-star"){
 				managerClassInHTML($(this),"fa-star",0);
-				console.log('removeu stars modal');
-
 				return false;	
 			}
 
@@ -437,6 +435,10 @@ function transforma_tempo(seg){
 
  }
 
+
+/**
+* @description Função adiciona as estrelas via DOM tanto do modal quanto das em exibição na pagina inicial   
+*/
  function addStarsModal(){
 	$('.stars li i').each(function(){
 		if($(this) != null){
@@ -444,9 +446,27 @@ function transforma_tempo(seg){
 		}
 	})
 	$('.w3-container .sessao-vencedor #winning-stars ul li i').each(function(){
-			managerClassInHTML($(this),"fa-star",1);
-
-
+		managerClassInHTML($(this),"fa-star",1);
 	})
 	 	
  }
+
+/**
+* @description Função efetua a ação de embaralhar novamente as cartas após clicar em qualquer local da DOM, quando
+	é exibido o modal    
+*/
+function clickOutToModal(){
+
+	window.onclick = function(event) {
+	var modal_02 = document.getElementById('id02');
+	var modal_03 = document.getElementById('id03');
+	  if(event.target == modal_02){
+	  	modal_02.style.display = "none";
+	  	embaralhar();
+	  }
+	  if(event.target == modal_03){
+	  	modal_03.style.display = "none";
+	  	embaralhar();
+	  }
+	}
+}
