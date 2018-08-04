@@ -43,13 +43,17 @@ var lista_card;
 var lista_encontrados = [];
 var nomeCLassFirst;
 var nomeCLassSecund;
-var erros = 5;
+var erros = 0;
+var time = [];
 var stars = [];
 var wins = 0;
 var cores = ["#ee82ee","#a9a9a9","#40e0d0","#ffff00" ,"#f0e68c","#dc143c","#7fff00","#f4a460"];
 var indice_cor = 0;
 var lista_cartas_reais = [];
 var vitorias = 0;
+var newTime;
+var minutos;
+var segundos;
 
 window.onclick = function(event) {
 var modal_01 = document.getElementById('id01');
@@ -70,7 +74,7 @@ var modal_03 = document.getElementById('id03');
 }
 
 stars = $('.stars li').children();
-
+	
 
 $('ul.deck li').each(function(index, value){
 		$(this).click(function(){
@@ -104,9 +108,12 @@ $('ul.deck li').each(function(index, value){
 						blockCard(lista_cartas_reais[1], true);
 						lista_cartas_reais = [];
 					}
+					getTempoJogo();
 
 				}else{
-					
+					verifyMoves();
+					getTempoJogo();
+					console.log('tempo: '+getTempoJogo());
 					lista_cartas_reais = [];
 					turnOffEfect();
 					setTimeout(function(){ blockCard($('ul.deck li'),true);}, 100);
@@ -117,16 +124,9 @@ $('ul.deck li').each(function(index, value){
 						}
 					blockCard(selected_before,false);
 					notAreTheSame();
-					erros = erros-1;
-					$('.moves').text(erros);
+					erros ++;
+					//$('.moves').text(erros);
 					
-					$('.stars li i').each(function(){
-						if($(this).attr('class') === "fa fa-star"){
-							managerClassInHTML($(this),"fa-star",0);
-							return false;	
-						}
-
-					})
 					
 				}
 			}
@@ -230,9 +230,9 @@ function areTheSame(cor){
 * @param {string} author - The author of the book
 */
 function notAreTheSame(){
-	if(erros <= 1 ){
+	/*if(erros <= 1 ){
 		document.getElementById('id01').style.display='block';
-	}
+	}*/
 	pares = false;
 	lista_selecionados.splice(0,2);
 	setTimeout(function(){
@@ -263,7 +263,8 @@ function embaralhar(){
 * @description Função que inicializa as váriaveis e muda o estilo das cartas iniciando-as novamente.
 */
 function novoJogo(){
-	
+
+
 	$('ul.deck li').each(function(){
 		$('ul.deck li').css('background','#2e3d49');
 
@@ -286,9 +287,9 @@ function novoJogo(){
 	lista_encontrados = [];
 	nomeCLassFirst = null;
 	nomeCLassSecund = null
-	erros = 5;
+	erros = 0;
 	indice_cor = 0;
-	$('.moves').text(erros);
+	// $('.moves').text(erros);
 	iniciarJogo();
 
 }
@@ -356,8 +357,15 @@ function iniciarJogo(){
 	 },7000);
 	setTimeout(function(){
 		blockCard($('ul.deck li'),false);
-	},7200);	
-}
+		var tempoInicial = new Date();
+		minutos = tempoInicial.getMinutes();
+		segundos = tempoInicial.getSeconds();
+		// console.log('inicio: '+minutos+':'+segundos);
+		time[2] = Date.now();
+		
+	},7200);
+
+ }
 
 /**
 * @description Função que realiza o bloqueio/desbloqueio da carta para que nao seja possível clica-la   
@@ -392,3 +400,49 @@ function locksOrUnlocksAll(allOrNothing){
 function getVitorias(){
 	return vitorias;
 }
+
+function getTempoJogo(){
+	if(time[2] != null){
+		tempoAtual = (Date.now()-time[2])/1000;
+		return transforma_tempo(tempoAtual);
+	}
+	// return tempoDeJogo;
+}
+
+function transforma_tempo(seg){
+              
+	function formataCasa(numero){
+		if (numero <= 9){
+			numero = "0"+numero;
+        }
+		return numero;
+	}
+
+    hora = formataCasa(Math.round(seg/3600));
+    minuto = formataCasa(Math.floor((seg%3600)/60));
+    segundo = formataCasa(((seg%3600)%60).toPrecision(2));
+
+    formatado = hora+":"+minuto+":"+segundo;
+              
+    return formatado;
+ }
+
+
+ function verifyMoves(){
+ 	if(erros ==  3){ 
+    	removeStars();
+	}
+	if(erros == 7 ){
+    	removeStars();
+	} 
+ }
+
+ function removeStars(){
+		$('.stars li i').each(function(){
+			if($(this).attr('class') === "fa fa-star"){
+				managerClassInHTML($(this),"fa-star",0);
+				return false;	
+			}
+
+		})
+ }

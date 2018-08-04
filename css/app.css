@@ -1,4 +1,4 @@
-@media (max-width: 1025px){
+/*@media (max-width: 1025px){
     .deck{
         width: 955px!important;
         min-height: 960px!important;
@@ -19,38 +19,38 @@
      .deck .card.show {
     font-size: 72px!important;
 }
-}
+}*/
 
 @media (max-width: 800px){
     .deck{
-        width: 710px!important;
+        width: 550px!important;
         min-height: 300px!important;
     }
     .deck .card {
-        height: 145px!important;
-        width: 125px!important;
+        height: 90px!important;
+        width: 90px!important;
         margin: 4px;
     }
     .score-panel {
         width: 400px!important;
-        font-size: 9px!important;   
+        font-size: 8px!important;   
     }
     #title-jogo{
-        font-size: 50px!important;
+        font-size: 40px!important;
     }
 
      .deck .card.show {
-    font-size: 50px!important;
+    font-size: 60px!important;
 }
 }
 
 @media (max-width: 700px){
     .deck{
-        width: 555px!important;
+        width: 485px!important;
         min-height: 300px!important;
     }
     .deck .card {
-        height: 135px!important;
+        height: 90px!important;
         width: 92px!important;
     }
     .score-panel {
@@ -63,7 +63,16 @@
 
      .deck .card.show {
     font-size: 45px!important;
-}
+    }
+    
+    #span-vitorias{
+        font-size: 13px;
+     }
+    
+    .score-panel .restart{
+        font-size: 13px;
+     }
+
 }
 
 @media (max-width: 520px){
@@ -87,9 +96,17 @@
         font-size: 35px!important;
     }
 
-     .deck .card.show {
+    .deck .card.show {
     font-size: 42px!important;
-}
+    }
+
+    #span-vitorias{
+        font-size: 10px;
+    }
+    
+    .score-panel .restart{
+        font-size: 10px;
+    }
 }
 
 @media (max-width: 360px){
@@ -103,7 +120,7 @@
         margin: 1%;
     }
     .score-panel {
-        width: 280px!important ;
+        width: 250px!important ;
         font-size: 9px!important ;   
     }
     #title-jogo{
@@ -116,7 +133,14 @@
 
     .deck .card.show {
     font-size: 40px!important;
-}
+    }
+     #span-vitorias{
+        font-size: 7px;
+     }
+    
+    .score-panel .restart{
+        font-size: 7px;
+     }
 
 }
 
@@ -130,7 +154,7 @@
         width: 55px!important ;
     }
     .score-panel {
-        width: 280px!important ;
+        width: 230px!important ;
         font-size: 9px!important ;   
     }
     #title-jogo{
@@ -146,8 +170,6 @@
 }
 
 }
-
-
 
 html {
     box-sizing: border-box;
@@ -249,9 +271,14 @@ span{
 .score-panel .stars li {
     list-style: none;
     display: inline-block;
+
+}
+.fa .fa-star{
+    font-size: 20px!important;
 }
 
 .score-panel .restart {
+    width: 30%;
     float: right;
     cursor: pointer;
 }
@@ -310,23 +337,26 @@ span{
     padding: 17px;
 }
 
-.w3-btn{
+.w3-btn, .w3-button{
     font-size: 24px!important;
+    float: inherit;
 }
 
 header h2{
     font-family: 'Fredericka the Great', cursive;
-    font-size: 50px;
+    font-size: 45px;
 }
-
+/*
 .rosa{
     background: #EE82EE!important;
-}
+}*/
 
 
 #span-vitorias{
-    font-size: 21px;
-    padding: 0.6%;
+    font-size: 19px;
+    position: relative;
+    right: 8%;
+    padding: 1.6%;
     border: 2px solid;
     color: white;
     background-color: grey;
@@ -337,6 +367,6 @@ header h2{
 .qnt_vitorias{
     width: 6.0%;
     border: 4px solid grey;
-    font-size: 24px;
+    font-size: 22px;
     text-align: center;
 }
