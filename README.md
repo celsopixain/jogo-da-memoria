@@ -1,22 +1,21 @@
-# Memory Game Project
+# Projeto Jogo da Memoria
 
-## Table of Contents
+## Tabela de Conteudos
 
-* [Instructions](#instructions)
-* [Contributing](#contributing)
+* [Instruções](#instrucoes)
+* [Contribuindo](#contribuindo)
 
-## Instructions
+## Instruções 
 
-The starter project has some HTML and CSS styling to display a static version of the Memory Game project. You'll need to convert this project from a static project to an interactive one. This will require modifying the HTML and CSS files, but primarily the JavaScript file.
+O Projeto possui arquivos; HTML, contendo o corpo do texto, um arquivo de estilo CSS generalizado. Logo, para que haja modificação do projeto e possibilite alterações visíveis, deve ser realizado alterações nesses arquivos salva-los e visualizar a renderização nas páginas exibidas localmente.
 
-To get started, open `js/app.js` and start building out the app's functionality
+Para iniciar o porjeto deve-se acessar o arquivo `index.html` esse sendo o principal arquivo que realiza a chamada a vários metodos e dispostos em arquivos organizados em pastas especificas.
 
-For specific, detailed instructions, look at the project instructions in the [Udacity Classroom](https://classroom.udacity.com/me).
+As funcionalidades interativas, que dão vida a página; como movimentos e animações, são controladas pelo arquivo `js/app.js`. Já a estilização cores, tamanhos e etc. são geridas pelo arquivo `app.css`. Logo, corpo do site é organizado pelo arquivo `index.html`, onde é a página principal que faz a chamado dos outros arquivos e respectivos metodos.
 
-## Contributing
 
-This repository is the starter code for _all_ Udacity students. Therefore, we most likely will not accept pull requests.
+## Contribuindo
 
-For details, check out [CONTRIBUTING.md](CONTRIBUTING.md).
-# jogo-da-memoria
+Este código contribui com possiveis métodos para os interessados em interação de jogos da memoria.
+
 # jogo-da-memoria

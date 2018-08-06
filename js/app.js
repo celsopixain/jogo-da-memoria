@@ -37,11 +37,12 @@ function initialPage(){
 }
 	
 /**
-* @description Nesse bloco até a próxima função são declaradas várias variaveis, alem das chamadas de várias 
-	outras funções antes do movimento principal, Sendo entao, realizado um 'each' no objeto jQuery para 
-	verificar os clicks de cada 'card' e efetuar a verificação conforme cada duas cartas a 'selected' a atual e a 
-	'selected_before' carta anterior, vários processos de verificação e modificação sobre a interação da carta é 
-	realizado dentro desse loop, incluindo a chamada de várias funções declaradas mais adiante. 
+* @description Nesse bloco até a próxima função são declaradas várias variaveis, alem das chamadas 
+	de várias outras funções antes do movimento principal, Sendo entao, realizado um 'each' no objeto 
+	jQuery para verificar os clicks de cada 'card' e efetuar a verificação conforme cada duas cartas 
+	a 'selected' a atual e a 'selected_before' carta anterior, vários processos de verificação e
+	modificação sobre a interação da carta é realizado dentro desse loop, incluindo a chamada de várias 
+	funções declaradas mais adiante. 
 */
 function controleCartas(){
 
@@ -168,8 +169,8 @@ function addClasstToListFound(objetoEncontrado){
 }
 
 /**
-* @description Função que gerencia a inclusão ou exclusão de Classes css para o atributo 'class' do elemento,
-	conforme o ultimo parametro passado.
+* @description Função que gerencia a inclusão ou exclusão de Classes css para o atributo 'class' 
+do elemento, conforme o ultimo parametro passado.
 * @constructor
 * @param {string} card - Elemento que irá adicionar ou receber a classe
 * @param {string} nameOfClass - Nome da classe css que será adicionada
@@ -367,7 +368,8 @@ function locksOrUnlocksAll(allOrNothing){
 }
 
 /**
-* @description Função que busca o tempo de jogo do usuário em segundos e chama a outra função para formatar-lo   
+* @description Função que busca o tempo de jogo do usuário em segundos e chama a outra função 
+	para formatar-lo 
 * @returns {String} retorna o tempo de com que o usuário gastou para localizar todos os pares. 
 */
 function getTempoJogo(){
@@ -402,7 +404,8 @@ function transforma_tempo(seg){
 
 
 /**
-* @description Função verifica os movimentos para que haja uma redução das estrelas do usuário conforme os erros   
+* @description Função verifica os movimentos para que haja uma redução das estrelas do 
+usuário conforme os erros   
 */
  function verifyMoves(){
  	if(erros ==  3){ 
@@ -437,7 +440,8 @@ function transforma_tempo(seg){
 
 
 /**
-* @description Função adiciona as estrelas via DOM tanto do modal quanto das em exibição na pagina inicial   
+* @description Função adiciona as estrelas via DOM tanto do modal quanto das em exibição na pagina 
+inicial   
 */
  function addStarsModal(){
 	$('.stars li i').each(function(){
@@ -452,7 +456,8 @@ function transforma_tempo(seg){
  }
 
 /**
-* @description Função efetua a ação de embaralhar novamente as cartas após clicar em qualquer local da DOM, quando
+* @description Função efetua a ação de embaralhar novamente as cartas após clicar em qualquer local 
+da DOM, quando
 	é exibido o modal    
 */
 function clickOutToModal(){
