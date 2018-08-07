@@ -8,7 +8,6 @@ var nomeCLassFirst;
 var nomeCLassSecund;
 var erros = 0;
 var time;
-var stars = [];
 var wins = 0;
 var cores = ["#ee82ee","#a9a9a9","#40e0d0","#ffff00" ,"#f0e68c","#dc143c","#7fff00","#f4a460"];
 var indice_cor = 0;
@@ -16,12 +15,12 @@ var lista_cartas_reais = [];
 var vitorias = 0;
 var minutosInicial;
 var segundosInicial;
+var varTime;
 
 initialPage();
 clickOutToModal();
-stars = $('.stars li').children();
+// stars = $('.stars li').children();
 controleCartas();
-
 
 /**
 * @description Função que chama o modal inicial de aviso sobre o tempo de exibição das cartas
@@ -45,7 +44,7 @@ function initialPage(){
 	funções declaradas mais adiante. 
 */
 function controleCartas(){
-
+// setInterval();
 	$('ul.deck li').each(function(index, value){
 			$(this).click(function(){
 				selected = $(this);
@@ -119,7 +118,6 @@ function controleCartas(){
 * @param {array} array - Lista de Valores passada, para que retorne outra randomizada 
 * @returns {array} Retorna lista randomizada
 */
-
 function shuffle(array) {
     var currentIndex = array.length, temporaryValue, randomIndex;
 
@@ -229,6 +227,8 @@ function notAreTheSame(){
 * @description Função embaralha as cartas e chama o método de novo jogo
 */
 function embaralhar(){
+	
+
 	$(this).css("pointer-events", "auto");
 	blockCard($('#seta-restart'),true);
 	var list = [];
@@ -249,7 +249,6 @@ function embaralhar(){
 * @description Função que inicializa as váriaveis e muda o estilo das cartas iniciando-as novamente.
 */
 function novoJogo(){
-
 
 	$('ul.deck li').each(function(){
 		$('ul.deck li').css('background','#2e3d49');
@@ -325,6 +324,7 @@ function efectOnTheCorrectCard(cartaSelecionada, aux){
 	enquato as cartas são exibidas para a memorizaçaõ do jogador.
 */
 function iniciarJogo(){
+	document.getElementById('timer').textContent = '00:00';
 	
 	blockCard($('ul.deck li'),true);
 	open_or_close_card(true,$('ul.deck li'));
@@ -335,9 +335,9 @@ function iniciarJogo(){
 		blockCard($('ul.deck li'),false);
 		blockCard($('#seta-restart'),false);
 		time = Date.now();
+		startActionTimer();
 		
-	},10200);
-
+	},10100);
  }
 
 /**
@@ -360,6 +360,7 @@ function blockCard(objetoSelecionado, blockOrDes){
 * @param {boolean} allOrNothing - Váriavel que irá indicar se bloqueia ou desbloqueia as cartas
 */
 function locksOrUnlocksAll(allOrNothing){
+	document.getElementById('timer').textContent = '00:00';
 	if(allOrNothing == true){
 		blockCard($('ul.deck li'),true);
 	}else{
@@ -373,7 +374,7 @@ function locksOrUnlocksAll(allOrNothing){
 * @returns {String} retorna o tempo de com que o usuário gastou para localizar todos os pares. 
 */
 function getTempoJogo(){
-	if(time != null){
+	if(time != null  ){
 		tempoAtual = (Date.now()-time)/1000;
 		return transforma_tempo(tempoAtual);
 	}
@@ -396,10 +397,12 @@ function transforma_tempo(seg){
     hora = formataCasa(Math.round(seg/3600));
     minuto = formataCasa(Math.floor((seg%3600)/60));
     segundo = formataCasa(((seg%3600)%60).toPrecision(2));
-
-    formatado = hora+":"+minuto+":"+segundo;
-              
-    return formatado;
+    if (segundo.indexOf('.') == 2) {
+    	segundo = segundo.replace(segundo.substring(2),"");
+    }
+    console.log('segundo: '+segundo);
+    formatado = minuto+":"+segundo;
+   	return formatado;
  }
 
 
@@ -474,4 +477,24 @@ function clickOutToModal(){
 	  	embaralhar();
 	  }
 	}
+}
+
+
+/**
+* @description Função que inicializa o temporizador solicitando o método a cada segundo    
+*/
+function startActionTimer(){
+	varTime = setInterval(function(){
+	document.getElementById('timer').textContent = getTempoJogo();
+	},1000);
+}
+
+/**
+* @description Função que para o temporizador    
+*/
+function stopTime(){
+	clearInterval(varTime);	
+	document.getElementById('timer').textContent = '00:00';
+	time = Date.now();
+	embaralhar();
 }

@@ -29,10 +29,11 @@
             </ul>
             <br>
             <span class="moves" value="erros"> </span> 
+            <span id="timer">00:00</span> 
             
             <div class="restart">
                 <button class="w3-button w3-teal w3-round-large">
-                    <i class="fa fa-repeat" id="seta-restart" onclick="embaralhar()" title="Reiniciar"> Novo</i>
+                    <i class="fa fa-repeat" id="seta-restart" onclick="stopTime()" title="Reiniciar"> Novo</i>
                 </button>
 
             </div>
@@ -133,7 +134,7 @@
                             </picture> -->
                             </div>
 
-                        <button class="w3-btn w3-blue w3-border w3-round-large" onclick="document.getElementById('id02').style.display='none';embaralhar();">Tente Novamente</button>
+                        <button class="w3-btn w3-blue w3-border w3-round-large" onclick="document.getElementById('id02').style.display='none';stopTime();">Tente Novamente</button>
                       <!--   <picture>
                           <img src="./img/vencedor.jpeg" alt="imagem de vencedor">
                         </picture> -->
