@@ -44,7 +44,6 @@ function initialPage(){
 	funções declaradas mais adiante. 
 */
 function controleCartas(){
-// setInterval();
 	$('ul.deck li').each(function(index, value){
 			$(this).click(function(){
 				selected = $(this);
@@ -219,9 +218,6 @@ function areTheSame(cor){
 * @param {string} author - The author of the book
 */
 function notAreTheSame(){
-	/*if(erros <= 1 ){
-		document.getElementById('id01').style.display='block';
-	}*/
 	pares = false;
 	lista_selecionados.splice(0,2);
 	setTimeout(function(){
@@ -406,7 +402,6 @@ function transforma_tempo(seg){
     if (segundo.indexOf('.') == 2) {
     	segundo = segundo.replace(segundo.substring(2),"");
     }
-    console.log('segundo: '+segundo);
     formatado = minuto+":"+segundo;
    	return formatado;
  }
