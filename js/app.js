@@ -192,15 +192,21 @@ function managerClassInHTML(card, nameOfClass, addOrRemove){
 * @param {string} cor - código da cor que será alterada	
 */
 function areTheSame(cor){
-	setTimeout(function(){ selected.css('background-color',cor); }, 300);
-	selected_before.css('background-color',cor);
-	setTimeout(function(){ efectOnTheCorrectCard(selected,true); }, 200);
+	setTimeout(function(){ 
+		selected.css('background-color',cor); 
+		selected_before.css('background-color',cor);
+	}, 300);
+	setTimeout(function(){ 
+		efectOnTheCorrectCard(selected,true); 
+	}, 200);
+	
 	addClasstToListFound(selected.children().attr('class'));
 	pares = true;
 	lista_selecionados.splice(0,2);
 	if(lista_encontrados.length == 8){
 		document.getElementById('tempo-decorrente').textContent = getTempoJogo();
 		document.getElementById('id02').style.display='block';
+		clearInterval(varTime);
 	}
 }
 
@@ -493,7 +499,6 @@ function startActionTimer(){
 * @description Função que para o temporizador    
 */
 function stopTime(){
-	clearInterval(varTime);	
 	document.getElementById('timer').textContent = '00:00';
 	time = Date.now();
 	embaralhar();
