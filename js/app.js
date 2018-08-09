@@ -18,8 +18,7 @@ var segundosInicial;
 var varTime;
 
 initialPage();
-clickOutToModal();
-// stars = $('.stars li').children();
+// clickOutToModal();
 controleCartas();
 
 /**
@@ -191,21 +190,26 @@ function managerClassInHTML(card, nameOfClass, addOrRemove){
 * @param {string} cor - código da cor que será alterada	
 */
 function areTheSame(cor){
-	setTimeout(function(){ 
-		selected.css('background-color',cor); 
-		selected_before.css('background-color',cor);
-	}, 300);
-	setTimeout(function(){ 
-		efectOnTheCorrectCard(selected,true); 
-	}, 200);
-	
-	addClasstToListFound(selected.children().attr('class'));
-	pares = true;
-	lista_selecionados.splice(0,2);
-	if(lista_encontrados.length == 8){
-		document.getElementById('tempo-decorrente').textContent = getTempoJogo();
-		document.getElementById('id02').style.display='block';
-		clearInterval(varTime);
+	if(selected != null){
+
+		setTimeout(function(){ 
+			if(selected != null){
+
+			selected.css('background-color',cor); 
+			selected_before.css('background-color',cor);
+			}
+		}, 300);
+		setTimeout(function(){ 
+			efectOnTheCorrectCard(selected,true); 
+		}, 200);
+		
+		addClasstToListFound(selected.children().attr('class'));
+		pares = true;
+		lista_selecionados.splice(0,2);
+		if(lista_encontrados.length == 8){
+			document.getElementById('id02').style.display='block';
+			clearInterval(varTime);
+		}
 	}
 }
 
@@ -229,8 +233,6 @@ function notAreTheSame(){
 * @description Função embaralha as cartas e chama o método de novo jogo
 */
 function embaralhar(){
-	
-
 	$(this).css("pointer-events", "auto");
 	blockCard($('#seta-restart'),true);
 	var list = [];
@@ -312,12 +314,15 @@ function open_or_close_card(openORClose, card){
 * @param {boolean} aux - variavel que indica o caminho que será tomado
 */
 function efectOnTheCorrectCard(cartaSelecionada, aux){
-	if(aux == true){
-		cartaSelecionada.animate({height:"80px"},200);
-		cartaSelecionada.animate({height:"125px"},300);
-	}else{
-		cartaSelecionada.animate({height:"80px"},300);
-		cartaSelecionada.animate({height:"125px"},450);
+	if(cartaSelecionada != null){
+
+		if(aux == true){
+			cartaSelecionada.animate({height:"80px"},200);
+			cartaSelecionada.animate({height:"125px"},300);
+		}else{
+			cartaSelecionada.animate({height:"80px"},300);
+			cartaSelecionada.animate({height:"125px"},450);
+		}
 	}
 }
 
@@ -464,6 +469,7 @@ inicial
 da DOM, quando
 	é exibido o modal    
 */
+/*
 function clickOutToModal(){
 
 	window.onclick = function(event) {
@@ -479,7 +485,7 @@ function clickOutToModal(){
 	  }
 	}
 }
-
+*/
 
 /**
 * @description Função que inicializa o temporizador solicitando o método a cada segundo    
@@ -487,6 +493,7 @@ function clickOutToModal(){
 function startActionTimer(){
 	varTime = setInterval(function(){
 	document.getElementById('timer').textContent = getTempoJogo();
+	document.getElementById('tempo-decorrente').textContent = getTempoJogo();
 	},1000);
 }
 
@@ -494,7 +501,9 @@ function startActionTimer(){
 * @description Função que para o temporizador    
 */
 function stopTime(){
+	clearInterval(varTime);
 	document.getElementById('timer').textContent = '00:00';
-	time = Date.now();
+	time = null;
 	embaralhar();
 }
+
